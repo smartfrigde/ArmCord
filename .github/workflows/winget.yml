@@ -6,7 +6,7 @@ jobs:
     publish:
         runs-on: windows-latest
         steps:
-            - uses: vedantmgoyal9/winget-releaser@v2
+            - uses: vedantmgoyal9/winget-releaser@main
               with:
                 identifier: smartfrigde.Legcord
                 token: ${{secrets.PUBLIC_REPO_READ}}
