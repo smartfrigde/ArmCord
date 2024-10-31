@@ -1,7 +1,7 @@
 import { unlink } from "node:fs";
 import { join } from "node:path";
 import { Menu, Tray, app, nativeImage } from "electron";
-import { getConfig, getConfigLocation } from "../common/config.js";
+import { getConfigLocation } from "../common/config.js";
 
 export let tray: Tray;
 const trayIcon = "ac_plug_colored";
@@ -21,7 +21,6 @@ void app.whenReady().then(() => {
             trayPath;
             break;
     }
-    const clientName = getConfig("clientName") ?? "Legcord";
     tray = new Tray(trayPath);
     const contextMenu = Menu.buildFromTemplate([
         {
@@ -29,7 +28,7 @@ void app.whenReady().then(() => {
             enabled: false,
         },
         {
-            label: `Quit ${clientName}`,
+            label: "Quit Legcord",
             click() {
                 unlink(getConfigLocation(), (err) => {
                     if (err) throw err;

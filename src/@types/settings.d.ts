@@ -41,7 +41,6 @@ export interface Settings {
         | "ac_black_plug_hollow"
         | "default"; // old configs DON'T USE
     doneSetup: boolean;
-    clientName: string;
     smoothScroll: boolean;
     autoScroll: boolean;
     modCache?: Record<ValidMods, string>;
