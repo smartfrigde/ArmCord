@@ -66,7 +66,12 @@ Not available yet.
 
 ### Scoop package
 
-Not available yet.
+LegCord is also available on the [Extras](https://github.com/ScoopInstaller/Extras) repo
+
+```powershell
+scoop bucket add extras # Ensure bucket is added first
+scoop install legcord
+```
 
 ### AUR Package
 
