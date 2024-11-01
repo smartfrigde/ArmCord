@@ -10,7 +10,7 @@ importers:
     dependencies:
       arrpc:
         specifier: github:Legcord/arrpc
-        version: https://codeload.github.com/Legcord/arrpc/tar.gz/38b534a248893c2076871126d81cd5750bcad70d
+        version: git+https://git@github.com:Legcord/arrpc.git#38b534a248893c2076871126d81cd5750bcad70d
       electron-context-menu:
         specifier: ^4.0.4
         version: 4.0.4
@@ -40,8 +40,8 @@ importers:
         specifier: ^12.1.1
         version: 12.1.1(rollup@4.24.0)(tslib@2.8.0)(typescript@5.6.3)
       '@types/node':
-        specifier: ^22.7.7
-        version: 22.7.7
+        specifier: ^22.8.6
+        version: 22.8.6
       '@types/ws':
         specifier: ^8.5.12
         version: 8.5.12
@@ -56,7 +56,7 @@ importers:
         version: 33.0.2
       electron-builder:
         specifier: ^25.1.8
-        version: 25.1.8(electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8))
+        version: 25.1.8(electron-builder-squirrel-windows@25.1.8)
       rollup:
         specifier: ^4.24.0
         version: 4.24.0
@@ -737,8 +737,8 @@ packages:
   '@types/node@20.16.13':
     resolution: {integrity: sha512-GjQ7im10B0labo8ZGXDGROUl9k0BNyDgzfGpb4g/cl+4yYDWVKcozANF4FGr4/p0O/rAkQClM6Wiwkije++1Tg==}
 
-  '@types/node@22.7.7':
-    resolution: {integrity: sha512-SRxCrrg9CL/y54aiMCG3edPKdprgMVGDXjA3gB8UmmBW5TcXzRUYAh8EWzTnSJFAd1rgImPELza+A3bJ+qxz8Q==}
+  '@types/node@22.8.6':
+    resolution: {integrity: sha512-tosuJYKrIqjQIlVCM4PEGxOmyg3FCPa/fViuJChnGeEIhjA46oy8FMVoF9su1/v8PNs2a8Q0iFNyOx0uOF91nw==}
 
   '@types/plist@3.0.5':
     resolution: {integrity: sha512-E6OCaRmAe4WDmWNsL/9RMqdkkzDCY1etutkflWk4c+AcjDU07Pcz1fQwTX0TQz+Pxqn9i4L1TU3UFpjnrcDgxA==}
@@ -850,8 +850,8 @@ packages:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
     engines: {node: '>=8'}
 
-  arrpc@https://codeload.github.com/Legcord/arrpc/tar.gz/38b534a248893c2076871126d81cd5750bcad70d:
-    resolution: {tarball: https://codeload.github.com/Legcord/arrpc/tar.gz/38b534a248893c2076871126d81cd5750bcad70d}
+  arrpc@git+https://git@github.com:Legcord/arrpc.git#38b534a248893c2076871126d81cd5750bcad70d:
+    resolution: {commit: 38b534a248893c2076871126d81cd5750bcad70d, repo: git@github.com:Legcord/arrpc.git, type: git}
     version: 3.5.0
     hasBin: true
 
@@ -2949,7 +2949,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 22.7.7
+      '@types/node': 22.8.6
       '@types/responselike': 1.0.3
 
   '@types/debug@4.1.12':
@@ -2960,22 +2960,22 @@ snapshots:
 
   '@types/fs-extra@8.1.5':
     dependencies:
-      '@types/node': 22.7.7
+      '@types/node': 22.8.6
 
   '@types/fs-extra@9.0.13':
     dependencies:
-      '@types/node': 22.7.7
+      '@types/node': 22.8.6
 
   '@types/glob@7.2.0':
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 22.7.7
+      '@types/node': 22.8.6
 
   '@types/http-cache-semantics@4.0.4': {}
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 22.7.7
+      '@types/node': 22.8.6
 
   '@types/minimatch@5.1.2': {}
 
@@ -2985,30 +2985,30 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
-  '@types/node@22.7.7':
+  '@types/node@22.8.6':
     dependencies:
       undici-types: 6.19.8
 
   '@types/plist@3.0.5':
     dependencies:
-      '@types/node': 22.7.7
+      '@types/node': 22.8.6
       xmlbuilder: 15.1.1
     optional: true
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 22.7.7
+      '@types/node': 22.8.6
 
   '@types/verror@1.10.10':
     optional: true
 
   '@types/ws@8.5.12':
     dependencies:
-      '@types/node': 22.7.7
+      '@types/node': 22.8.6
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 22.7.7
+      '@types/node': 22.8.6
     optional: true
 
   '@uwu/lune@1.4.2':
@@ -3083,7 +3083,7 @@ snapshots:
 
   app-builder-bin@5.0.0-alpha.10: {}
 
-  app-builder-lib@25.1.8(dmg-builder@25.1.8(electron-builder-squirrel-windows@25.1.8))(electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8)):
+  app-builder-lib@25.1.8(dmg-builder@25.1.8)(electron-builder-squirrel-windows@25.1.8):
     dependencies:
       '@develar/schema-utils': 2.6.5
       '@electron/notarize': 2.5.0
@@ -3170,7 +3170,7 @@ snapshots:
 
   array-union@2.1.0: {}
 
-  arrpc@https://codeload.github.com/Legcord/arrpc/tar.gz/38b534a248893c2076871126d81cd5750bcad70d:
+  arrpc@git+https://git@github.com:Legcord/arrpc.git#38b534a248893c2076871126d81cd5750bcad70d:
     dependencies:
       ws: 8.18.0
     transitivePeerDependencies:
@@ -3468,7 +3468,7 @@ snapshots:
 
   dmg-builder@25.1.8(electron-builder-squirrel-windows@25.1.8):
     dependencies:
-      app-builder-lib: 25.1.8(dmg-builder@25.1.8(electron-builder-squirrel-windows@25.1.8))(electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8))
+      app-builder-lib: 25.1.8(dmg-builder@25.1.8)(electron-builder-squirrel-windows@25.1.8)
       builder-util: 25.1.7
       builder-util-runtime: 9.2.10
       fs-extra: 10.1.0
@@ -3507,7 +3507,7 @@ snapshots:
 
   electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8):
     dependencies:
-      app-builder-lib: 25.1.8(dmg-builder@25.1.8(electron-builder-squirrel-windows@25.1.8))(electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8))
+      app-builder-lib: 25.1.8(dmg-builder@25.1.8)(electron-builder-squirrel-windows@25.1.8)
       archiver: 5.3.2
       builder-util: 25.1.7
       fs-extra: 10.1.0
@@ -3516,9 +3516,9 @@ snapshots:
       - dmg-builder
       - supports-color
 
-  electron-builder@25.1.8(electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8)):
+  electron-builder@25.1.8(electron-builder-squirrel-windows@25.1.8):
     dependencies:
-      app-builder-lib: 25.1.8(dmg-builder@25.1.8(electron-builder-squirrel-windows@25.1.8))(electron-builder-squirrel-windows@25.1.8(dmg-builder@25.1.8))
+      app-builder-lib: 25.1.8(dmg-builder@25.1.8)(electron-builder-squirrel-windows@25.1.8)
       builder-util: 25.1.7
       builder-util-runtime: 9.2.10
       chalk: 4.1.2
