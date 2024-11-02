@@ -19,5 +19,8 @@
         "vaapi"
     ],
     "cSpell.ignorePaths": ["assets/lang"],
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "biomejs.biome",
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    }
 }

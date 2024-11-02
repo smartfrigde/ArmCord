@@ -12,25 +12,14 @@ import { getConfig } from "../common/config.js";
 
 let capturerWindow: BrowserWindow;
 let isDone: boolean;
-function showAudioDialog(): boolean {
-    const options: MessageBoxOptions = {
-        type: "question",
-        buttons: ["Yes", "No"],
-        defaultId: 1,
-        title: "Screenshare audio",
-        message: "Would you like to screenshare audio?",
-        detail: "Selecting yes will make viewers of your stream hear your entire system audio.",
-    };
-
-    void dialog.showMessageBox(capturerWindow, options).then(({ response }) => {
-        if (response === 0) {
-            return true;
-        } else {
-            return false;
-        }
-    });
-    return true;
-}
+const audioDialogOptions: MessageBoxOptions = {
+    type: "question",
+    buttons: ["Yes", "No"],
+    defaultId: 1,
+    title: "Screenshare audio",
+    message: "Would you like to screenshare audio?",
+    detail: 'Selecting "Yes" will allow viewers to hear your entire system audio during the stream. If the screenshare does not start after confirming, audio screenshare may not be available.',
+};
 
 function registerCustomHandler(): void {
     session.defaultSession.setDisplayMediaRequestHandler(
@@ -46,10 +35,15 @@ function registerCustomHandler(): void {
                     console.log(sources);
                     if (process.platform === "linux" && process.env.XDG_SESSION_TYPE?.toLowerCase() === "wayland") {
                         console.log("WebRTC Capturer detected, skipping window creation."); //assume webrtc capturer is used
-                        let options: Streams = { video: sources[0] };
+                        const options: Streams = { video: sources[0] };
                         if (sources[0] === undefined) return callback({});
-                        if (showAudioDialog() === true) options = { video: sources[0], audio: getConfig("audio") };
-                        callback(options);
+                        void dialog.showMessageBox(capturerWindow, audioDialogOptions).then(({ response }) => {
+                            if (response === 0) {
+                                callback({ video: sources[0], audio: getConfig("audio") });
+                            } else {
+                                callback(options);
+                            }
+                        });
                     } else {
                         capturerWindow = new BrowserWindow({
                             width: 800,
