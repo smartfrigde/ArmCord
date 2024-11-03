@@ -119,16 +119,21 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
                 init(), resolve(), 1500;
             }),
         );
-        session.defaultSession.setPermissionRequestHandler((_webContents, permission, callback) => {
+        session.defaultSession.setPermissionRequestHandler(async (_webContents, permission, callback) => {
             if (permission === "notifications") {
                 // Approves the permissions request
                 callback(true);
             }
             if (permission === "media") {
-                // Approves the permissions request
-                systemPreferences.askForMediaAccess("microphone");
-                systemPreferences.askForMediaAccess("camera");
-                callback(true);
+                if (process.platform === "darwin") {
+                    const mic = await systemPreferences.askForMediaAccess("microphone");
+                    const cam = await systemPreferences.askForMediaAccess("camera");
+                    if (!(mic && cam)) {
+                        callback(false);
+                    }
+                } else {
+                    callback(true);
+                }
             }
             if (permission === "fullscreen") {
                 // Approves the permissions request
