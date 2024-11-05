@@ -21,6 +21,6 @@
     "cSpell.ignorePaths": ["assets/lang"],
     "editor.defaultFormatter": "biomejs.biome",
     "[typescript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
+        "editor.defaultFormatter": "biomejs.biome"
     }
 }
