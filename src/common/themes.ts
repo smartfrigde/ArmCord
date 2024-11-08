@@ -182,14 +182,16 @@ export async function installTheme(linkOrPath: string) {
 
 export function initQuickCss(browserWindow: BrowserWindow) {
     const quickCssPath = path.join(userDataPath, "/quickCss.css");
-    if (!fs.existsSync(quickCssPath)) {
-        fs.writeFileSync(quickCssPath, "");
-    }
-    browserWindow.webContents.send("addTheme", "legcord-quick-css", fs.readFileSync(quickCssPath, "utf-8"));
-    console.log("[Theme Manager] Loaded Quick CSS");
-    fs.watchFile(quickCssPath, { interval: 1000 }, () => {
-        console.log("[Theme Manager] Quick CSS updated.");
-        browserWindow.webContents.send("removeTheme", "legcord-quick-css");
+    browserWindow.webContents.on("did-finish-load", () => {
+        if (!fs.existsSync(quickCssPath)) {
+            fs.writeFileSync(quickCssPath, "");
+        }
         browserWindow.webContents.send("addTheme", "legcord-quick-css", fs.readFileSync(quickCssPath, "utf-8"));
+        console.log("[Theme Manager] Loaded Quick CSS");
+        fs.watchFile(quickCssPath, { interval: 1000 }, () => {
+            console.log("[Theme Manager] Quick CSS updated.");
+            browserWindow.webContents.send("removeTheme", "legcord-quick-css");
+            browserWindow.webContents.send("addTheme", "legcord-quick-css", fs.readFileSync(quickCssPath, "utf-8"));
+        });
     });
 }
