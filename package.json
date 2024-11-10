@@ -1,6 +1,6 @@
 {
     "name": "legcord",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Legcord is a custom client designed to enhance your Discord experience while keeping everything lightweight.",
     "main": "ts-out/main.js",
     "engines": {
@@ -35,13 +35,13 @@
         "@rollup/plugin-esm-shim": "^0.1.7",
         "@rollup/plugin-json": "^6.1.0",
         "@rollup/plugin-typescript": "^12.1.1",
-        "@types/node": "^22.8.7",
+        "@types/node": "^22.9.0",
         "@types/ws": "^8.5.13",
         "@uwu/lune": "^1.4.2",
         "@uwu/shelter-defs": "^1.4.1",
         "electron": "32.2.2",
         "electron-builder": "^25.1.8",
-        "rollup": "^4.24.3",
+        "rollup": "^4.25.0",
         "rollup-plugin-copy": "^3.5.0",
         "rollup-plugin-esbuild": "^6.1.1",
         "solid-js": "^1.9.3",
@@ -54,6 +54,6 @@
         "v8-compile-cache": "^2.4.0",
         "ws": "^8.18.0"
     },
-    "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
+    "packageManager": "pnpm@10.0.0-alpha.0+sha512.856941ef22665d2f3e41c04e8d86ed757ef057fb2bc35011698bfa988ef5817cc1cdd28bb883e7f23f0568c75de5544d4750211d4276b9ba6d55369eb207a549",
     "package-manager-strict": false
 }
