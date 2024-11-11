@@ -107,7 +107,6 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
     if (getConfig("keybinds") === undefined) setConfig("keybinds", []);
     if (getConfig("trayIcon") === "default") setConfig("trayIcon", "dynamic");
     if (getConfig("transparency") === undefined) setConfig("transparency", "none");
-    // @ts-ignore
     if (getConfig("windowStyle") === "transparent") setConfig("windowStyle", "default");
     if (getConfig("smoothScroll") === false) app.commandLine.appendSwitch("disable-smooth-scrolling");
     if (getConfig("autoScroll")) app.commandLine.appendSwitch("enable-blink-features", "MiddleClickAutoscroll");
@@ -115,22 +114,26 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
     void app.whenReady().then(async () => {
         // Patch for linux bug to insure things are loaded before window creation (fixes transparency on some linux systems)
         await new Promise<void>((resolve) =>
-            setTimeout(
-                () =>
-                    (
-                        // biome-ignore lint/style/noCommaOperator: // FIXME - What?
-                        init(), resolve(), 1500
-                    ),
-            ),
+            setTimeout(() => {
+                // biome-ignore lint/style/noCommaOperator: // FIXME - What?
+                init(), resolve(), 1500;
+            }),
         );
-        session.defaultSession.setPermissionRequestHandler((_webContents, permission, callback) => {
+        session.defaultSession.setPermissionRequestHandler(async (_webContents, permission, callback) => {
             if (permission === "notifications") {
                 // Approves the permissions request
                 callback(true);
             }
             if (permission === "media") {
-                // Approves the permissions request
-                callback(true);
+                if (process.platform === "darwin") {
+                    const mic = await systemPreferences.askForMediaAccess("microphone");
+                    const cam = await systemPreferences.askForMediaAccess("camera");
+                    if (!(mic && cam)) {
+                        callback(false);
+                    }
+                } else {
+                    callback(true);
+                }
             }
             if (permission === "fullscreen") {
                 // Approves the permissions request

@@ -27,11 +27,10 @@ export function createTray() {
     }
 
     if (getConfig("tray")) {
-        const clientName = getConfig("clientName") ?? "Legcord";
         tray = new Tray(trayPath);
         const contextMenu = Menu.buildFromTemplate([
             {
-                label: `${clientName} ${getDisplayVersion()}`,
+                label: `Legcord ${getDisplayVersion()}`,
                 icon: trayPath,
                 enabled: false,
             },
@@ -39,7 +38,7 @@ export function createTray() {
                 type: "separator",
             },
             {
-                label: `Open ${clientName}`,
+                label: "Open Legcord",
                 click() {
                     mainWindows.forEach((mainWindow) => {
                         mainWindow.show();
@@ -75,7 +74,7 @@ export function createTray() {
                 type: "separator",
             },
             {
-                label: `Quit ${clientName}`,
+                label: "Quit Legcord",
                 click() {
                     setForceQuit(true);
                     app.quit();
@@ -84,7 +83,7 @@ export function createTray() {
         ]);
         tray.setContextMenu(contextMenu);
 
-        tray.setToolTip(clientName);
+        tray.setToolTip("Legcord");
         tray.on("click", () => {
             mainWindows.forEach((mainWindow) => {
                 mainWindow.show();

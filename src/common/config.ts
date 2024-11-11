@@ -29,7 +29,6 @@ const defaults: Settings = {
     mobileMode: false,
     trayIcon: "dynamic",
     doneSetup: false,
-    clientName: "Legcord",
     customIcon: join(import.meta.dirname, "../", "/assets/desktop.png"),
     smoothScroll: true,
     autoScroll: false,
