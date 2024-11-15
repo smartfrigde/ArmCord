@@ -147,6 +147,13 @@ export function SettingsPage() {
                 {store.i18n["settings-MultiInstance"]}
             </SwitchItem>
             <SwitchItem
+                note={store.i18n["settings-disableAutogain-desc"]}
+                value={store.settings.disableAutogain}
+                onChange={(e: boolean) => setConfig("disableAutogain", e)}
+            >
+                {store.i18n["settings-disableAutogain"]}
+            </SwitchItem>
+            <SwitchItem
                 note={store.i18n["settings-mintoTray-desc"]}
                 value={store.settings.minimizeToTray}
                 onChange={(e: boolean) => setConfig("minimizeToTray", e)}
