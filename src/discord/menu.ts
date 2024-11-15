@@ -34,7 +34,7 @@ export function setMenu(): void {
                 },
                 {
                     label: "Open settings",
-                    accelerator: "CmdOrCtrl+Shift+'",
+                    accelerator: "Cmd+,",
                     click() {
                         mainWindows.forEach((mainWindow) => {
                             mainWindow.show();
