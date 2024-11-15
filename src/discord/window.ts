@@ -59,12 +59,7 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
         void passedWindow.webContents.executeJavaScript(`document.body.setAttribute("isMaximized", "");`);
         passedWindow.hide(); // please don't flashbang the user
     }
-    if (getConfig("transparency") === "modern" && process.platform === "win32") {
-        passedWindow.setBackgroundMaterial("mica");
-        if (getConfig("startMinimized") === false) {
-            passedWindow.show();
-        }
-    }
+
     // REVIEW - Test the protocol warning. I was not sure how to get it to pop up. For now I've voided the promises.
 
     const ignoreProtocolWarning = getConfig("ignoreProtocolWarning");
@@ -349,6 +344,7 @@ export function createWindow() {
             browserWindowOptions.backgroundColor = "#00000000";
             browserWindowOptions.transparent = false;
             browserWindowOptions.frame = true;
+            browserWindowOptions.backgroundMaterial = "acrylic";
             break;
         case "none":
             break;
