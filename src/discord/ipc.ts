@@ -1,7 +1,16 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { type BrowserWindow, type SourcesOptions, app, clipboard, desktopCapturer, ipcMain, shell } from "electron";
+import {
+    type BrowserWindow,
+    type SourcesOptions,
+    app,
+    clipboard,
+    desktopCapturer,
+    dialog,
+    ipcMain,
+    shell,
+} from "electron";
 
 import isDev from "electron-is-dev";
 import type { Keybind } from "../@types/keybind.js";
@@ -187,5 +196,17 @@ export function registerIpc(passedWindow: BrowserWindow): void {
     });
     ipcMain.on("copyGPUInfo", () => {
         clipboard.writeText(JSON.stringify(app.getGPUFeatureStatus()));
+    });
+    ipcMain.on("openCustomIconDialog", () => {
+        dialog
+            .showOpenDialog({
+                properties: ["openFile"],
+                filters: [{ name: "Icons", extensions: ["ico", "png", "icns"] }],
+            })
+            .then((result) => {
+                if (result.canceled) return;
+                console.log(result.filePaths[0]);
+                setConfig("customIcon", result.filePaths[0]);
+            });
     });
 }

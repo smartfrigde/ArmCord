@@ -225,6 +225,10 @@ export function SettingsPage() {
             >
                 {store.i18n["settings-disableHttpCache"]}
             </SwitchItem>
+            <Button size={ButtonSizes.MAX} onClick={window.legcord.settings.openCustomIconDialog}>
+                {store.i18n["settings-openCustomIconDialog"]}
+            </Button>
+            <br />
             <Button size={ButtonSizes.MAX} onClick={window.legcord.settings.openStorageFolder}>
                 {store.i18n["settings-storageFolder"]}
             </Button>

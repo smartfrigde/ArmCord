@@ -22,6 +22,7 @@
     "settings-transparency-modern": "Modern (Windows 11 only)",
     "settings-theme-transparent": "Transparent",
     "settings-audio": "Audio",
+    "settings-openCustomIconDialog": "Set desktop icon",
     "settings-audio-desc": "Select which method Legcord uses to grab audio from your system during screenshare.",
     "settings-csp-desc": "Legcord CSP is our system that manages loading custom content loading into the Discord app. Stuff like client mods and themes depend on it. Disable if you want to get rid of mods and custom styles.",
     "settings-mintoTray": "Work in background",
