@@ -128,15 +128,15 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
                 if (process.platform === "darwin") {
                     callback(
                         await new Promise<boolean>((resolve, reject) => {
-                            systemPreferences.askForMediaAccess("microphone").then((status) => {
-                                if (!status) {
-                                    reject("microphone permission rejected");
+                            systemPreferences.askForMediaAccess("microphone").then((isGranted) => {
+                                if (!isGranted) {
+                                    reject("Microphone permission rejected");
                                     return;
                                 }
                             });
-                            systemPreferences.askForMediaAccess("camera").then((status) => {
-                                if (!status) {
-                                    reject("microphone permission rejected");
+                            systemPreferences.askForMediaAccess("camera").then((isGranted) => {
+                                if (!isGranted) {
+                                    reject("Camera permission rejected");
                                     return;
                                 }
                             });
