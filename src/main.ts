@@ -126,13 +126,23 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
             }
             if (permission === "media") {
                 if (process.platform === "darwin") {
-                    const mic = await systemPreferences.askForMediaAccess("microphone");
-                    const cam = await systemPreferences.askForMediaAccess("camera");
-                    if (!(mic && cam)) {
-                        callback(false);
-                    }
-                } else {
-                    callback(true);
+                    callback(
+                        await new Promise<boolean>((resolve, reject) => {
+                            systemPreferences.askForMediaAccess("microphone").then((isGranted) => {
+                                if (!isGranted) {
+                                    reject("Microphone permission rejected");
+                                    return;
+                                }
+                            });
+                            systemPreferences.askForMediaAccess("camera").then((isGranted) => {
+                                if (!isGranted) {
+                                    reject("Camera permission rejected");
+                                    return;
+                                }
+                            });
+                            resolve(true);
+                        }),
+                    );
                 }
             }
             if (permission === "fullscreen") {
