@@ -26,7 +26,7 @@ const defaults: Settings = {
     disableAutogain: false,
     useLegacyCapturer: false,
     mobileMode: false,
-    trayIcon: "dynamic",
+    tray: "dynamic",
     doneSetup: false,
     customIcon: join(import.meta.dirname, "../", "/assets/desktop.png"),
     smoothScroll: true,

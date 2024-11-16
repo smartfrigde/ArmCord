@@ -3,7 +3,7 @@ import { BrowserWindow, app, crashReporter, session, systemPreferences } from "e
 import "v8-compile-cache";
 import "./discord/extensions/csp.js";
 import "./protocol.js";
-import fs from "node:fs";
+import { readFileSync } from "node:fs";
 import type { Settings } from "./@types/settings.js";
 import {
     checkForDataFolder,
@@ -66,7 +66,12 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
     app.quit();
 } else {
     app.setAppUserModelId("app.legcord.Legcord");
-    app.commandLine.appendSwitch("disable-features", "WidgetLayering"); // fix dev tools layers
+    // WinRetrieveSuggestionsOnlyOnDemand: Work around electron 13 bug w/ async spellchecking on Windows.
+    // HardwareMediaKeyHandling,MediaSessionService: Prevent Discord from registering as a media service.
+    app.commandLine.appendSwitch(
+        "disable-features",
+        "WidgetLayering,WinRetrieveSuggestionsOnlyOnDemand,HardwareMediaKeyHandling,MediaSessionService",
+    ); // fix dev tools layers
     // Your data now belongs to CCP
     crashReporter.start({ uploadToServer: false });
     // enable pulseaudio audio sharing on linux
@@ -86,18 +91,13 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
     }
     // work around chrome 66 disabling autoplay by default
     app.commandLine.appendSwitch("autoplay-policy", "no-user-gesture-required");
-    // WinRetrieveSuggestionsOnlyOnDemand: Work around electron 13 bug w/ async spellchecking on Windows.
-    // HardwareMediaKeyHandling,MediaSessionService: Prevent Discord from registering as a media service.
-    app.commandLine.appendSwitch(
-        "disable-features",
-        "WinRetrieveSuggestionsOnlyOnDemand,HardwareMediaKeyHandling,MediaSessionService",
-    );
+
     app.commandLine.appendSwitch("enable-transparent-visuals");
     checkIfConfigIsBroken();
     injectElectronFlags();
     await fetchMods();
     void import("./discord/extensions/plugin.js"); // load chrome extensions
-    console.log(`[Config Manager] Current config: ${fs.readFileSync(getConfigLocation(), "utf-8")}`);
+    console.log(`[Config Manager] Current config: ${readFileSync(getConfigLocation(), "utf-8")}`);
     if (getConfig("hardwareAcceleration") === false) {
         app.disableHardwareAcceleration();
     } else if (getConfig("hardwareAcceleration") === undefined) {
@@ -111,7 +111,7 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
     if (getConfig("autoScroll")) app.commandLine.appendSwitch("enable-blink-features", "MiddleClickAutoscroll");
     if (getConfig("disableHttpCache")) app.commandLine.appendSwitch("disable-http-cache");
     void app.whenReady().then(async () => {
-        // Patch for linux bug to insure things are loaded before window creation (fixes transparency on some linux systems)
+        // Patch for linux bug to ensure things are loaded before window creation (fixes transparency on some linux systems)
         await new Promise<void>((resolve) =>
             setTimeout(() => {
                 init().then(() => {
@@ -120,34 +120,37 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
             }, 1500),
         );
         session.defaultSession.setPermissionRequestHandler(async (_webContents, permission, callback) => {
-            if (permission === "notifications") {
-                // Approves the permissions request
-                callback(true);
-            }
-            if (permission === "media") {
-                if (process.platform === "darwin") {
-                    callback(
-                        await new Promise<boolean>((resolve, reject) => {
-                            systemPreferences.askForMediaAccess("microphone").then((isGranted) => {
-                                if (!isGranted) {
-                                    reject("Microphone permission rejected");
-                                    return;
-                                }
-                            });
-                            systemPreferences.askForMediaAccess("camera").then((isGranted) => {
-                                if (!isGranted) {
-                                    reject("Camera permission rejected");
-                                    return;
-                                }
-                            });
-                            resolve(true);
-                        }),
-                    );
+            switch (permission) {
+                case "fullscreen":
+                case "notifications":
+                    callback(true);
+                    break;
+                case "media": {
+                    if (process.platform === "darwin") {
+                        console.log(`microphone access: ${systemPreferences.getMediaAccessStatus("screen")}`);
+                        console.log(`camera access: ${systemPreferences.getMediaAccessStatus("screen")}`);
+                        callback(
+                            await new Promise<boolean>((resolve, reject) => {
+                                systemPreferences.askForMediaAccess("microphone").then((isGranted) => {
+                                    if (!isGranted) {
+                                        console.error("Microphone permission rejected by OS");
+                                        reject();
+                                        return;
+                                    }
+                                });
+                                systemPreferences.askForMediaAccess("camera").then((isGranted) => {
+                                    if (!isGranted) {
+                                        console.error("Camera permission rejected by OS");
+                                        reject();
+                                        return;
+                                    }
+                                });
+                                resolve(true);
+                            }),
+                        );
+                    }
+                    break;
                 }
-            }
-            if (permission === "fullscreen") {
-                // Approves the permissions request
-                callback(true);
             }
         });
         app.on("activate", () => {

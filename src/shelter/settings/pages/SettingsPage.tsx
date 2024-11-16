@@ -82,9 +82,7 @@ export function SettingsPage() {
             </DropdownItem>
             <DropdownItem
                 value={store.settings.trayIcon}
-                onChange={(e) =>
-                    setConfig("trayIcon", (e.target as HTMLInputElement).value as Settings["trayIcon"], true)
-                }
+                onChange={(e) => setConfig("tray", (e.target as HTMLInputElement).value as Settings["tray"], true)}
                 title={store.i18n["settings-trayIcon"]}
                 note={store.i18n["settings-trayIcon-desc"]}
             >

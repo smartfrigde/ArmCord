@@ -6,88 +6,86 @@ import { getDisplayVersion } from "../common/version.js";
 import { createInviteWindow, mainWindows } from "./window.js";
 export let tray: Tray;
 
-let trayIcon: string;
 export function createTray() {
-    trayIcon = getConfig("trayIcon");
-    if (trayIcon === "dynamic") trayIcon = "ac_plug_colored";
-    let trayPath = nativeImage.createFromPath(join(import.meta.dirname, "../", `/assets/${trayIcon}.png`));
+    let trayIcon = getConfig("tray");
+    if (trayIcon === "disabled") {
+        return;
+    }
+    if (trayIcon === "dynamic") {
+        trayIcon = "ac_plug_colored";
+    }
+    let trayImg = nativeImage.createFromPath(join(import.meta.dirname, "../", `/assets/${trayIcon}.png`));
     switch (process.platform) {
         case "win32":
-            trayPath = trayPath.resize({ height: 16 });
+            trayImg = trayImg.resize({ height: 16 });
             break;
         case "darwin":
-            trayPath = trayPath.resize({ height: 18 });
+            trayImg = trayImg.resize({ height: 18 });
             break;
         case "linux":
-            trayPath = trayPath.resize({ height: 24 });
-            break;
-        default:
-            trayPath;
+            trayImg = trayImg.resize({ height: 24 });
             break;
     }
 
-    if (getConfig("trayIcon") !== "disabled") {
-        tray = new Tray(trayPath);
-        const contextMenu = Menu.buildFromTemplate([
-            {
-                label: `Legcord ${getDisplayVersion()}`,
-                icon: trayPath,
-                enabled: false,
+    tray = new Tray(trayImg);
+    const contextMenu = Menu.buildFromTemplate([
+        {
+            label: `Legcord ${getDisplayVersion()}`,
+            icon: trayImg,
+            enabled: false,
+        },
+        {
+            type: "separator",
+        },
+        {
+            label: "Open Legcord",
+            click() {
+                mainWindows.forEach((mainWindow) => {
+                    mainWindow.show();
+                });
             },
-            {
-                type: "separator",
-            },
-            {
-                label: "Open Legcord",
-                click() {
-                    mainWindows.forEach((mainWindow) => {
-                        mainWindow.show();
-                    });
-                },
-            },
-            {
-                label: "Open Settings",
-                click() {
-                    mainWindows.forEach((mainWindow) => {
-                        mainWindow.show();
+        },
+        {
+            label: "Open Settings",
+            click() {
+                mainWindows.forEach((mainWindow) => {
+                    mainWindow.show();
 
-                        void mainWindow.webContents.executeJavaScript(`window.shelter.flux.dispatcher.dispatch({
+                    void mainWindow.webContents.executeJavaScript(`window.shelter.flux.dispatcher.dispatch({
                                 "type": "USER_SETTINGS_MODAL_OPEN",
                                 "section": "My Account",
                                 "subsection": null,
                                 "openWithoutBackstack": false
                             })`);
-                        void mainWindow.webContents.executeJavaScript(
-                            `window.shelter.flux.dispatcher.dispatch({type: "LAYER_PUSH", component: "USER_SETTINGS"})`,
-                        );
-                        // TODO - open legcord tab in settings
-                    });
-                },
+                    void mainWindow.webContents.executeJavaScript(
+                        `window.shelter.flux.dispatcher.dispatch({type: "LAYER_PUSH", component: "USER_SETTINGS"})`,
+                    );
+                });
             },
-            {
-                label: "Support Discord Server",
-                click() {
-                    void createInviteWindow("TnhxcqynZ2");
-                },
+        },
+        {
+            label: "Support Discord Server",
+            click() {
+                void createInviteWindow("TnhxcqynZ2");
             },
-            {
-                type: "separator",
+        },
+        {
+            type: "separator",
+        },
+        {
+            label: "Quit Legcord",
+            click() {
+                setForceQuit(true);
+                app.quit();
             },
-            {
-                label: "Quit Legcord",
-                click() {
-                    setForceQuit(true);
-                    app.quit();
-                },
-            },
-        ]);
-        tray.setContextMenu(contextMenu);
+        },
+    ]);
+    tray.setContextMenu(contextMenu);
 
-        tray.setToolTip("Legcord");
-        tray.on("click", () => {
-            mainWindows.forEach((mainWindow) => {
-                mainWindow.show();
-            });
+    tray.setToolTip("Legcord");
+    tray.on("click", () => {
+        mainWindows.forEach((mainWindow) => {
+            mainWindow.show();
         });
-    }
+    });
 }

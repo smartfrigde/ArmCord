@@ -9,7 +9,6 @@ export interface LegcordWindow {
         maximize: () => void;
     };
     electron: string;
-    setTrayIcon: (favicon: string) => void;
     getLang: (toGet: string) => Promise<string>;
     getDisplayMediaSelector: () => Promise<string>;
     version: string;

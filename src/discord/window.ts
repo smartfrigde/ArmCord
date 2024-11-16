@@ -171,7 +171,7 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
         (_, callback) => callback({ cancel: true }),
     );
 
-    if (getConfig("trayIcon") === "dynamic") {
+    if (getConfig("tray") === "dynamic") {
         passedWindow.webContents.on("page-favicon-updated", (_, favicons) => {
             try {
                 let favicon = nativeImage.createFromDataURL(favicons[0]);

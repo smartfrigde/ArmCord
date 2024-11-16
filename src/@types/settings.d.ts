@@ -2,6 +2,17 @@ import type { Keybind } from "./keybind.js";
 
 export type ValidMods = "vencord" | "equicord" | "custom" | "shelter";
 
+export type ValidTrayIcons =
+    | "dynamic"
+    | "dsc-tray"
+    | "clsc-dsc-tray"
+    | "ac_plug_colored"
+    | "ac_white_plug"
+    | "ac_white_plug_hollow"
+    | "ac_black_plug"
+    | "ac_black_plug_hollow"
+    | "disabled";
+
 export interface Settings {
     // Referenced for detecting a broken config.
     "0"?: string;
@@ -29,16 +40,7 @@ export interface Settings {
     inviteWebsocket: boolean;
     disableAutogain: boolean;
     disableHttpCache: boolean;
-    trayIcon:
-        | "dynamic"
-        | "dsc-tray"
-        | "clsc-dsc-tray"
-        | "ac_plug_colored"
-        | "ac_white_plug"
-        | "ac_white_plug_hollow"
-        | "ac_black_plug"
-        | "ac_black_plug_hollow"
-        | "disabled";
+    tray: ValidTrayIcons;
     doneSetup: boolean;
     smoothScroll: boolean;
     autoScroll: boolean;
