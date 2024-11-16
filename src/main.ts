@@ -127,8 +127,8 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
                     break;
                 case "media": {
                     if (process.platform === "darwin") {
-                        console.log(`microphone access: ${systemPreferences.getMediaAccessStatus("screen")}`);
-                        console.log(`camera access: ${systemPreferences.getMediaAccessStatus("screen")}`);
+                        console.log(`microphone access: ${systemPreferences.getMediaAccessStatus("microphone")}`);
+                        console.log(`camera access: ${systemPreferences.getMediaAccessStatus("camera")}`);
                         callback(
                             await new Promise<boolean>((resolve, reject) => {
                                 systemPreferences.askForMediaAccess("microphone").then((isGranted) => {
