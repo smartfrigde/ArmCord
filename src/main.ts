@@ -105,7 +105,6 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
     }
     if (getConfig("audio") === undefined) setConfig("audio", "loopbackWithMute");
     if (getConfig("keybinds") === undefined) setConfig("keybinds", []);
-    if (getConfig("trayIcon") === "default") setConfig("trayIcon", "dynamic");
     if (getConfig("transparency") === undefined) setConfig("transparency", "none");
     if (getConfig("windowStyle") === "transparent") setConfig("windowStyle", "default");
     if (getConfig("smoothScroll") === false) app.commandLine.appendSwitch("disable-smooth-scrolling");

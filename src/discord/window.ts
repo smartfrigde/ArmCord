@@ -1,4 +1,4 @@
-import * as fs from "node:fs";
+import { readFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import RPCServer from "arrpc";
@@ -105,7 +105,7 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
                 frame.url.includes("youtube.com/embed/") ||
                 (frame.url.includes("discordsays") && frame.url.includes("youtube.com"))
             ) {
-                await frame.executeJavaScript(fs.readFileSync(path.join(__dirname, "js/adguard.js"), "utf-8"));
+                await frame.executeJavaScript(readFileSync(path.join(__dirname, "js/adguard.js"), "utf-8"));
             }
         });
     });

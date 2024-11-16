@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import {
@@ -29,7 +29,7 @@ const pluginsPath = path.join(userDataPath, "/plugins/");
 const quickCssPath = path.join(userDataPath, "/quickCss.css");
 
 function ifExistsRead(path: string): string | undefined {
-    if (fs.existsSync(path)) return fs.readFileSync(path, "utf-8");
+    if (existsSync(path)) return readFileSync(path, "utf-8");
 }
 
 export function registerIpc(passedWindow: BrowserWindow): void {
@@ -144,7 +144,7 @@ export function registerIpc(passedWindow: BrowserWindow): void {
         refreshGlobalKeybinds();
     });
     ipcMain.on("getEntireConfig", (event) => {
-        const rawData = fs.readFileSync(getConfigLocation(), "utf-8");
+        const rawData = readFileSync(getConfigLocation(), "utf-8");
         event.returnValue = JSON.parse(rawData) as Settings;
     });
     ipcMain.on("getTranslations", (event) => {
@@ -187,7 +187,7 @@ export function registerIpc(passedWindow: BrowserWindow): void {
         event.returnValue = process.platform;
     });
     ipcMain.on("copyDebugInfo", () => {
-        const settingsFileContent = fs.readFileSync(getConfigLocation(), "utf-8");
+        const settingsFileContent = readFileSync(getConfigLocation(), "utf-8");
         clipboard.writeText(
             `**OS:** ${os.platform()} ${os.version()}\n**Architecture:** ${os.arch()}\n**Legcord version:** ${getVersion()}\n**Electron version:** ${
                 process.versions.electron
