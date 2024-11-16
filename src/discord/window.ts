@@ -97,6 +97,9 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
         app.show();
     });
     passedWindow.webContents.on("frame-created", (_, { frame }) => {
+        if (!frame) {
+            return;
+        }
         frame.once("dom-ready", async () => {
             if (
                 frame.url.includes("youtube.com/embed/") ||

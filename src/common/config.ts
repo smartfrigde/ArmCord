@@ -20,7 +20,6 @@ const defaults: Settings = {
     skipSplash: false,
     inviteWebsocket: true,
     startMinimized: false,
-    tray: true,
     disableHttpCache: false,
     customJsBundle: "https://legcord.app/placeholder.js",
     customCssBundle: "https://legcord.app/placeholder.css",

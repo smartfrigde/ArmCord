@@ -24,7 +24,6 @@ export interface Settings {
     customCssBundle: RequestInfo | URL | string;
     startMinimized: boolean;
     useLegacyCapturer: boolean;
-    tray: boolean;
     keybinds: Keybind[];
     hardwareAcceleration: boolean;
     inviteWebsocket: boolean;
@@ -39,7 +38,8 @@ export interface Settings {
         | "ac_white_plug_hollow"
         | "ac_black_plug"
         | "ac_black_plug_hollow"
-        | "default"; // old configs DON'T USE
+        | "default" // old configs DON'T USE // nop we using them again i guess
+        | "disabled";
     doneSetup: boolean;
     smoothScroll: boolean;
     autoScroll: boolean;

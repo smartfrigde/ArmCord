@@ -26,7 +26,7 @@ export function createTray() {
             break;
     }
 
-    if (getConfig("tray")) {
+    if (getConfig("trayIcon") !== "disabled") {
         tray = new Tray(trayPath);
         const contextMenu = Menu.buildFromTemplate([
             {
