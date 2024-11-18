@@ -41,7 +41,7 @@ jobs:
 
             - name: Install SnapCraft
               if: matrix.os == 'macos-latest'
-              uses: samuelmeuli/action-snapcraft@v2
+              uses: samuelmeuli/action-snapcraft@v3
 
             - name: Load Electron cache
               uses: actions/cache/restore@v4
