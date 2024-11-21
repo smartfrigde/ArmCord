@@ -39,6 +39,10 @@ export function injectElectronFlags(): void {
             console.log("Battery mode enabled");
             app.commandLine.appendArgument(presets.battery);
             break;
+        case "vaapi":
+            console.log("VAAPI mode enabled");
+            app.commandLine.appendArgument(presets.vaapi);
+            break;
         default:
             console.log("No performance modes set");
     }
