@@ -26,7 +26,7 @@ export const config: Configuration = {
 
     nsis: {
         oneClick: false,
-        allowToChangeInstallationDirectory: false,
+        allowToChangeInstallationDirectory: true,
     },
 
     appx: {
