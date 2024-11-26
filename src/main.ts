@@ -162,7 +162,7 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
                             }),
                         );
                     } else {
-                        callback(true)
+                        callback(true);
                     }
                     break;
                 }
