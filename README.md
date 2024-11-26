@@ -66,7 +66,7 @@ Not available yet.
 
 ### Scoop package
 
-LegCord is also available on the [Extras](https://github.com/ScoopInstaller/Extras) repo
+Legcord is also available on the [Extras](https://github.com/ScoopInstaller/Extras) repo
 
 ```powershell
 scoop bucket add extras # Ensure bucket is added first
@@ -79,7 +79,7 @@ scoop install legcord
 
 ### Homebrew repository
 
-LegCord is also available on the [Homebrew Cask](https://github.com/Homebrew/homebrew-cask) repo
+Legcord is also available on the [Homebrew Cask](https://github.com/Homebrew/homebrew-cask) repo
 
 ```zsh
 brew install --cask legcord
