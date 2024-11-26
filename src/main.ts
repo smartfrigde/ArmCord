@@ -161,6 +161,8 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
                                 resolve(true);
                             }),
                         );
+                    } else {
+                        callback(true)
                     }
                     break;
                 }
