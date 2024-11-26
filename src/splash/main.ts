@@ -23,6 +23,9 @@ export async function createSplashWindow(): Promise<void> {
     ipcMain.on("splash-isDev", (event) => {
         event.returnValue = isDev;
     });
+    ipcMain.on("splash-isMicrosoftStore", (event) => {
+        event.returnValue = process.windowsStore;
+    });
     ipcMain.on("splash-clientmod", (event) => {
         event.returnValue = getConfig("mods");
     });
