@@ -132,6 +132,7 @@ export async function createTManagerWindow(): Promise<void> {
         await themeWindow.loadFile(`${import.meta.dirname}/html/manager.html`);
         themeWindow.on("close", () => {
             instance = 0;
+            ipcMain.removeHandler("installBDTheme");
         });
     }
 }

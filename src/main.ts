@@ -98,6 +98,8 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
     await fetchMods();
     void import("./discord/extensions/plugin.js"); // load chrome extensions
     console.log(`[Config Manager] Current config: ${readFileSync(getConfigLocation(), "utf-8")}`);
+
+    // OLD CONFIGS MIGRATION
     if (getConfig("hardwareAcceleration") === false) {
         app.disableHardwareAcceleration();
     } else if (getConfig("hardwareAcceleration") === undefined) {
@@ -107,9 +109,20 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
     if (getConfig("keybinds") === undefined) setConfig("keybinds", []);
     if (getConfig("transparency") === undefined) setConfig("transparency", "none");
     if (getConfig("windowStyle") === "transparent") setConfig("windowStyle", "default");
+    if (typeof getConfig("tray") === "boolean") {
+        //@ts-expect-error
+        if (getConfig("tray") === true) {
+            setConfig("tray", "dynamic");
+            //@ts-expect-error old types
+        } else if (getConfig("tray") === false) {
+            setConfig("tray", "disabled");
+        }
+    }
+
     if (getConfig("smoothScroll") === false) app.commandLine.appendSwitch("disable-smooth-scrolling");
     if (getConfig("autoScroll")) app.commandLine.appendSwitch("enable-blink-features", "MiddleClickAutoscroll");
     if (getConfig("disableHttpCache")) app.commandLine.appendSwitch("disable-http-cache");
+
     void app.whenReady().then(async () => {
         // Patch for linux bug to ensure things are loaded before window creation (fixes transparency on some linux systems)
         await new Promise<void>((resolve) =>
