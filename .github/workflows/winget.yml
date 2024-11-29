@@ -9,4 +9,5 @@ jobs:
             - uses: vedantmgoyal9/winget-releaser@main
               with:
                 identifier: smartfrigde.Legcord
+                installers-regex: '-win-\w+\.exe$'
                 token: ${{secrets.PUBLIC_REPO_READ}}
