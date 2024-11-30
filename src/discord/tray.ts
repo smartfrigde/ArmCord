@@ -79,6 +79,14 @@ export function createTray() {
                 app.quit();
             },
         },
+        {
+            label: "Restart Legcord",
+            click() {
+                app.relaunch();
+                setForceQuit(true);
+                app.quit();
+            },
+        },
     ]);
     tray.setContextMenu(contextMenu);
 
