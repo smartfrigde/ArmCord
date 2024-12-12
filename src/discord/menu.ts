@@ -41,7 +41,6 @@ export function setMenu(): void {
                     click() {
                         mainWindows.forEach((mainWindow) => {
                             mainWindow.show();
-
                             void mainWindow.webContents.executeJavaScript(`window.shelter.flux.dispatcher.dispatch({
                                 "type": "USER_SETTINGS_MODAL_OPEN",
                                 "section": "My Account",
@@ -90,8 +89,20 @@ export function setMenu(): void {
         {
             label: "Edit",
             submenu: [
-                { label: "Undo", accelerator: "CmdOrCtrl+Z", role: "undo" },
-                { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", role: "redo" },
+                {
+                    label: "Undo",
+                    accelerator: "CmdOrCtrl+Z",
+                    click() {
+                        BrowserWindow.getFocusedWindow()!.webContents.undo();
+                    },
+                },
+                {
+                    label: "Redo",
+                    accelerator: "Shift+CmdOrCtrl+Z",
+                    click() {
+                        BrowserWindow.getFocusedWindow()!.webContents.redo();
+                    },
+                },
                 { type: "separator" },
                 { label: "Cut", accelerator: "CmdOrCtrl+X", role: "cut" },
                 { label: "Copy", accelerator: "CmdOrCtrl+C", role: "copy" },
