@@ -19,15 +19,18 @@ export function setMenu(): void {
             });
         }
     });
+    
     const template: MenuItemConstructorOptions[] = [
         {
             label: "Legcord",
             submenu: [
-                { label: "About Legcord", role: "about" }, //orderFrontStandardAboutPanel
+                { label: "About Legcord", role: "about" },
+                { type: 'separator' },
+                { role: 'services' },
                 { type: "separator" },
                 {
                     label: "Developer tools",
-                    accelerator: "CmdOrCtrl+Shift+I",
+                    accelerator: process.platform === 'darwin' ? 'Cmd+Option+I' : 'Ctrl+Shift+I',
                     click() {
                         BrowserWindow.getFocusedWindow()!.webContents.toggleDevTools();
                     },
@@ -69,6 +72,11 @@ export function setMenu(): void {
                         app.exit();
                     },
                 },
+                { type: "separator" },
+                { role: 'hide' },
+                { role: 'hideOthers' },
+                { role: 'unhide' },
+                { type: "separator" },
                 {
                     label: "Quit",
                     accelerator: "CmdOrCtrl+Q",
@@ -92,8 +100,12 @@ export function setMenu(): void {
             ],
         },
         {
-            label: "Zoom",
+            label: "View",
             submenu: [
+                {
+                    label: "Toggle Fullscreen",
+                    role: "togglefullscreen",
+                },
                 { label: "Zoom in", accelerator: "CmdOrCtrl+Plus", role: "zoomIn" },
                 // Fix for zoom in on keyboards with dedicated + like QWERTZ (or numpad)
                 // See https://github.com/electron/electron/issues/14742 and https://github.com/electron/electron/issues/5256
@@ -106,11 +118,9 @@ export function setMenu(): void {
         {
             label: "Window",
             submenu: [
-                {
-                    label: "Fullscreen",
-                    role: "togglefullscreen",
-                },
+                
                 { label: "Minimize", accelerator: "Cmd+M", role: "minimize" },
+                { label: "Close", accelerator: "Cmd+W", role: "close" },
             ],
         },
         {
