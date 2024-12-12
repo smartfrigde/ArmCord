@@ -20,6 +20,7 @@ export function injectTitlebar(isOverlay?: boolean): void {
     window.onload = () => {
         const elem = document.createElement("div");
         if (isOverlay) {
+            if (ipcRenderer.sendSync("getOS") as string === "darwin") return document.body.setAttribute("class", "platform-osx");
             elem.innerHTML = titlebarOverlayHTML;
         } else {
             elem.innerHTML = titlebarHTML;
