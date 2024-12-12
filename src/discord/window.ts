@@ -335,6 +335,11 @@ export function createWindow() {
                 color: "#2c2f33",
                 symbolColor: "#99aab5",
                 height: 30,
+
+            };
+            browserWindowOptions.trafficLightPosition = {
+                x: 13,
+                y: 10
             };
             break;
     }
