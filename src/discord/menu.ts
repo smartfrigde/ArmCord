@@ -19,18 +19,18 @@ export function setMenu(): void {
             });
         }
     });
-    
+
     const template: MenuItemConstructorOptions[] = [
         {
             label: "Legcord",
             submenu: [
                 { label: "About Legcord", role: "about" },
-                { type: 'separator' },
-                { role: 'services' },
+                { type: "separator" },
+                { role: "services" },
                 { type: "separator" },
                 {
                     label: "Developer tools",
-                    accelerator: process.platform === 'darwin' ? 'Cmd+Option+I' : 'Ctrl+Shift+I',
+                    accelerator: process.platform === "darwin" ? "Cmd+Option+I" : "Ctrl+Shift+I",
                     click() {
                         BrowserWindow.getFocusedWindow()!.webContents.toggleDevTools();
                     },
@@ -73,9 +73,9 @@ export function setMenu(): void {
                     },
                 },
                 { type: "separator" },
-                { role: 'hide' },
-                { role: 'hideOthers' },
-                { role: 'unhide' },
+                { role: "hide" },
+                { role: "hideOthers" },
+                { role: "unhide" },
                 { type: "separator" },
                 {
                     label: "Quit",
@@ -118,7 +118,6 @@ export function setMenu(): void {
         {
             label: "Window",
             submenu: [
-                
                 { label: "Minimize", accelerator: "Cmd+M", role: "minimize" },
                 { label: "Close", accelerator: "Cmd+W", role: "close" },
             ],
