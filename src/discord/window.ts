@@ -174,7 +174,7 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
     passedWindow.webContents.session.webRequest.onBeforeSendHeaders(
         { urls: ["https://www.youtube.com/embed/*"] },
         ({ requestHeaders, url }, callback) => {
-            requestHeaders["Referer"] = url;
+            requestHeaders.Referer = url;
             callback({ requestHeaders });
         },
     );
