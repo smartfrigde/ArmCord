@@ -170,7 +170,14 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
         { urls: ["https://*/api/v*/science", "https://sentry.io/*", "https://*.nel.cloudflare.com/*"] },
         (_, callback) => callback({ cancel: true }),
     );
-
+    // fix UMG video playback
+    passedWindow.webContents.session.webRequest.onBeforeSendHeaders(
+        { urls: ["https://www.youtube.com/embed/*"] },
+        ({ requestHeaders, url }, callback) => {
+            requestHeaders["Referer"] = url;
+            callback({ requestHeaders });
+        },
+    );
     if (getConfig("tray") === "dynamic") {
         passedWindow.webContents.on("page-favicon-updated", (_, favicons) => {
             try {
