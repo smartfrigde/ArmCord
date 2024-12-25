@@ -91,7 +91,8 @@ You can also get Legcord running on FreeBSD by following [these instructions](ht
 
 ### Pi-Apps
 
-Not available yet.
+Legcord is also available in [Pi-Apps](https://github.com/Botspot/pi-apps).  
+[![badge](https://github.com/Botspot/pi-apps/blob/master/icons/badge.png?raw=true)](https://github.com/Botspot/pi-apps)
 
 ### Pre-built binaries
 
