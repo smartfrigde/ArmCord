@@ -27,7 +27,8 @@ export function injectElectronFlags(): void {
     const presets = {
         performance:
             "--enable-gpu-rasterization --enable-zero-copy --ignore-gpu-blocklist --enable-hardware-overlays=single-fullscreen,single-on-top,underlay --enable-features=EnableDrDc,CanvasOopRasterization,BackForwardCache:TimeToLiveInBackForwardCacheInSeconds/300/should_ignore_blocklists/true/enable_same_site/true,ThrottleDisplayNoneAndVisibilityHiddenCrossOriginIframes,UseSkiaRenderer,WebAssemblyLazyCompilation --disable-features=Vulkan --force_high_performance_gpu", // Performance
-        battery: "--enable-features=TurnOffStreamingMediaCachingOnBattery --force_low_power_gpu --enable-low-end-device-mode --enable-low-res-tiling --process-per-site", // Known to have better battery life for Chromium?
+        battery:
+            "--enable-features=TurnOffStreamingMediaCachingOnBattery --force_low_power_gpu --enable-low-end-device-mode --enable-low-res-tiling --process-per-site", // Known to have better battery life for Chromium?
         vaapi: "--ignore-gpu-blocklist --enable-features=VaapiVideoDecoder --enable-gpu-rasterization --enable-zero-copy --force_high_performance_gpu --use-gl=desktop --disable-features=UseChromeOSDirectVideoDecoder",
     };
     switch (getConfig("performanceMode")) {

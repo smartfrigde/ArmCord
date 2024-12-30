@@ -17,7 +17,7 @@ const {
         Divider,
         SwitchItem,
         genId,
-        showToast
+        showToast,
     },
     plugin: { store },
 } = shelter;
@@ -56,11 +56,12 @@ export const KeybindMaker = (props: { close: () => void }) => {
         });
     }
     function save() {
-        if (lock) return showToast({
-            title: "Slow down!",
-            content: "Pause for a few seconds after recording a keybind before saving it.",
-            duration: 3000,
-          });;
+        if (lock)
+            return showToast({
+                title: "Slow down!",
+                content: "Pause for a few seconds after recording a keybind before saving it.",
+                duration: 3000,
+            });
         if (accelerator() === "") return;
         const current = store.settings.keybinds;
         const keybind = {
