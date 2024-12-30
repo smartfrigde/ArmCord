@@ -73,16 +73,16 @@ export function createTray() {
             type: "separator",
         },
         {
-            label: "Quit Legcord",
+            label: "Restart Legcord",
             click() {
+                app.relaunch();
                 setForceQuit(true);
                 app.quit();
             },
         },
         {
-            label: "Restart Legcord",
+            label: "Quit Legcord",
             click() {
-                app.relaunch();
                 setForceQuit(true);
                 app.quit();
             },
