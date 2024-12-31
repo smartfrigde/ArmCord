@@ -30,6 +30,10 @@ export interface LegcordWindow {
         toggleKeybind: (id: string) => void;
         removeKeybind: (id: string) => void;
     };
+    touchbar: {
+        setVoiceTouchbar: (state: boolean) => void;
+        setVoiceState: (mute: boolean, deafen: boolean) => void;
+    };
 }
 
 declare global {

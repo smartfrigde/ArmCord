@@ -38,7 +38,7 @@ function audioEngineCheck() {
         });
     }
 }
-function muteToggle() {
+export function muteToggle() {
     console.log("[Keybind action] Mute");
     audioEngineCheck();
     mainWindows.forEach((window) => {
@@ -53,7 +53,7 @@ function muteToggle() {
     });
 }
 
-function deafenToggle() {
+export function deafenToggle() {
     console.log("[Keybind action] Deafen");
     audioEngineCheck();
     mainWindows.forEach((window) => {
@@ -62,6 +62,21 @@ function deafenToggle() {
             "type": "AUDIO_TOGGLE_SELF_DEAF",
             "context": "default",
             "syncRemote": true
+        })
+        `);
+    });
+}
+
+export function leaveCall() {
+    console.log("[Keybind action] Leave call");
+    mainWindows.forEach((window) => {
+        void window.webContents.executeJavaScript(`
+        window.shelter.flux.dispatcher.dispatch({
+            "type": "VOICE_CHANNEL_SELECT",
+            "channelId": null,
+            "currentVoiceChannelId": "",
+            "video": false,
+            "stream": false
         })
         `);
     });

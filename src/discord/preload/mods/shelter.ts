@@ -8,6 +8,7 @@ const requiredPlugins: Record<string, [string, { isVisible: boolean; allowedActi
         "legcord://plugins/screenshareQualityFix/",
         { isVisible: true, allowedActions: { toggle: true } },
     ],
+    "legcord-touchbar": ["legcord://plugins/touchbar/", { isVisible: true, allowedActions: { toggle: true } }],
 };
 try {
     await ipcRenderer.invoke("getShelterBundle").then(async (bundle: ModBundle) => {

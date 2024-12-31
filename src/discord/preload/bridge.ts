@@ -59,6 +59,10 @@ contextBridge.exposeInMainWorld("legcord", {
         copyDebugInfo: () => ipcRenderer.send("copyDebugInfo"),
         copyGPUInfo: () => ipcRenderer.send("copyGPUInfo"),
     },
+    touchbar: {
+        setVoiceTouchbar: (state: boolean) => ipcRenderer.send("setVoiceTouchbar", state),
+        setVoiceState: (mute: boolean, deafen: boolean) => ipcRenderer.send("setVoiceState", mute, deafen),
+    },
     electron: process.versions.electron,
     translations: ipcRenderer.sendSync("getTranslations") as string,
     getLang: async (toGet: string) =>

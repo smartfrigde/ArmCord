@@ -21,6 +21,7 @@ import { getDisplayVersion, getVersion } from "../common/version.js";
 import { splashWindow } from "../splash/main.js";
 import { createTManagerWindow } from "../themeManager/main.js";
 import { refreshGlobalKeybinds } from "./globalKeybinds.js";
+import { setVoiceState, voiceTouchBar } from "./touchbar.js";
 
 const userDataPath = app.getPath("userData");
 const storagePath = path.join(userDataPath, "/storage/");
@@ -73,6 +74,16 @@ export function registerIpc(passedWindow: BrowserWindow): void {
     });
     ipcMain.on("setLang", (_event, lang: string) => {
         setLang(lang);
+    });
+    ipcMain.on("setVoiceTouchbar", (_event, state: boolean) => {
+        if (state) {
+            passedWindow.setTouchBar(voiceTouchBar);
+        } else {
+            passedWindow.setTouchBar(null);
+        }
+    });
+    ipcMain.on("setVoiceState", (_event, mute: boolean, deafen: boolean) => {
+        setVoiceState(mute, deafen);
     });
     ipcMain.on("getLangSync", (event, toGet: string) => {
         event.reply("langString", getLang(toGet));

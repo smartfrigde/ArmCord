@@ -198,7 +198,6 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
             }
         });
     }
-
     initQuickCss(passedWindow);
     passedWindow.webContents.on("page-title-updated", (e, title) => {
         const legcordSuffix = " - Legcord"; /* identify */
