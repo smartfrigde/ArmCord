@@ -30,10 +30,12 @@ function getAllGuilds() {
 }
 
 export function onLoad() {
-    log("Legcord Touchbar Integration");
-    updateVoiceState();
-    dispatcher.subscribe("TRACK", track);
-    dispatcher.subscribe("AUDIO_TOGGLE_SELF_MUTE", updateVoiceState);
-    dispatcher.subscribe("AUDIO_TOGGLE_SELF_DEAF", updateVoiceState);
-    setTimeout(() => window.legcord.touchbar.importGuilds(getAllGuilds()), 5000);
+    if (window.legcord.platform === "darwin") {
+        log("Legcord Touchbar Integration");
+        updateVoiceState();
+        dispatcher.subscribe("TRACK", track);
+        dispatcher.subscribe("AUDIO_TOGGLE_SELF_MUTE", updateVoiceState);
+        dispatcher.subscribe("AUDIO_TOGGLE_SELF_DEAF", updateVoiceState);
+        setTimeout(() => window.legcord.touchbar.importGuilds(getAllGuilds()), 5000);
+    }
 }
