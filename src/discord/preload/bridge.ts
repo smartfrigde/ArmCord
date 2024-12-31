@@ -62,6 +62,7 @@ contextBridge.exposeInMainWorld("legcord", {
     touchbar: {
         setVoiceTouchbar: (state: boolean) => ipcRenderer.send("setVoiceTouchbar", state),
         setVoiceState: (mute: boolean, deafen: boolean) => ipcRenderer.send("setVoiceState", mute, deafen),
+        importGuilds: (guilds: Array<string>) => ipcRenderer.send("importGuilds", guilds),
     },
     electron: process.versions.electron,
     translations: ipcRenderer.sendSync("getTranslations") as string,

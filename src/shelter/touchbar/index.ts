@@ -19,13 +19,21 @@ function track(payload: { event: string; properties: { enabled: string } }) {
     }
 }
 
+function getAllGuilds() {
+    const guilds = storesFlat.GuildStore.getGuildIds();
+    const array = [];
+    for (let index = 0; index < guilds.length; ++index) {
+        const guildID = guilds[index];
+        array.push(`${guildID}/${storesFlat.GuildStore.getGuild(guildID).icon}`);
+    }
+    return array;
+}
+
 export function onLoad() {
     log("Legcord Touchbar Integration");
     updateVoiceState();
     dispatcher.subscribe("TRACK", track);
     dispatcher.subscribe("AUDIO_TOGGLE_SELF_MUTE", updateVoiceState);
     dispatcher.subscribe("AUDIO_TOGGLE_SELF_DEAF", updateVoiceState);
-}
-export function onUnload() {
-    dispatcher.unsubscribe("TRACK", track);
+    setTimeout(() => window.legcord.touchbar.importGuilds(getAllGuilds()), 5000);
 }

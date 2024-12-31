@@ -24,6 +24,7 @@ import { init } from "../main.js";
 import { registerGlobalKeybinds } from "./globalKeybinds.js";
 import { registerIpc } from "./ipc.js";
 import { setMenu } from "./menu.js";
+import { mainTouchBar } from "./touchbar.js";
 import { createTray, tray } from "./tray.js";
 export let mainWindows: BrowserWindow[] = [];
 export let inviteWindow: BrowserWindow;
@@ -199,6 +200,7 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
         });
     }
     initQuickCss(passedWindow);
+    passedWindow.setTouchBar(mainTouchBar);
     passedWindow.webContents.on("page-title-updated", (e, title) => {
         const legcordSuffix = " - Legcord"; /* identify */
 

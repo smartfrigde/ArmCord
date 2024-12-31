@@ -21,7 +21,7 @@ import { getDisplayVersion, getVersion } from "../common/version.js";
 import { splashWindow } from "../splash/main.js";
 import { createTManagerWindow } from "../themeManager/main.js";
 import { refreshGlobalKeybinds } from "./globalKeybinds.js";
-import { setVoiceState, voiceTouchBar } from "./touchbar.js";
+import { importGuilds, mainTouchBar, setVoiceState, voiceTouchBar } from "./touchbar.js";
 
 const userDataPath = app.getPath("userData");
 const storagePath = path.join(userDataPath, "/storage/");
@@ -79,8 +79,11 @@ export function registerIpc(passedWindow: BrowserWindow): void {
         if (state) {
             passedWindow.setTouchBar(voiceTouchBar);
         } else {
-            passedWindow.setTouchBar(null);
+            passedWindow.setTouchBar(mainTouchBar);
         }
+    });
+    ipcMain.on("importGuilds", (_event, array: Array<string>) => {
+        importGuilds(array);
     });
     ipcMain.on("setVoiceState", (_event, mute: boolean, deafen: boolean) => {
         setVoiceState(mute, deafen);

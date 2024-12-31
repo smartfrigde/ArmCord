@@ -33,6 +33,7 @@ export interface LegcordWindow {
     touchbar: {
         setVoiceTouchbar: (state: boolean) => void;
         setVoiceState: (mute: boolean, deafen: boolean) => void;
+        importGuilds: (array: Array<string>) => void;
     };
 }
 
