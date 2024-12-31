@@ -14,6 +14,7 @@ import {
     getConfigLocation,
     setConfig,
 } from "./common/config.js";
+import "./updater.js";
 import { injectElectronFlags } from "./common/flags.js";
 import { setLang } from "./common/lang.js";
 import { fetchMods } from "./discord/extensions/modloader.js";
