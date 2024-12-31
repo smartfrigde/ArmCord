@@ -1,4 +1,11 @@
-export type KeybindActions = "mute" | "deafen" | "navigateBack" | "navigateForward" | "openQuickCss" | "runJavascript";
+export type KeybindActions =
+    | "mute"
+    | "deafen"
+    | "leaveCall"
+    | "navigateBack"
+    | "navigateForward"
+    | "openQuickCss"
+    | "runJavascript";
 export interface Keybind {
     accelerator: Electron.Accelerator;
     action: KeybindActions;

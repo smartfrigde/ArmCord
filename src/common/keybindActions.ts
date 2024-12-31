@@ -12,6 +12,9 @@ export function runAction(keybind: Keybind) {
         case "deafen":
             deafenToggle();
             break;
+        case "leaveCall":
+            leaveCall();
+            break;
         case "navigateBack":
             navigateBack();
             break;

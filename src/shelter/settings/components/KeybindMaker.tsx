@@ -99,6 +99,7 @@ export const KeybindMaker = (props: { close: () => void }) => {
                 >
                     <option value="mute">Mute</option>
                     <option value="deafen">Deafen</option>
+                    <option value="leaveCall">Leave call</option>
                     <option value="navigateForward">Navigate forward</option>
                     <option value="navigateBack">Navigate back</option>
                     <option value="runJavascript">Run Javascript</option>
