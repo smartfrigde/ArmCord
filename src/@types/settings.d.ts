@@ -44,5 +44,6 @@ export interface Settings {
     doneSetup: boolean;
     smoothScroll: boolean;
     autoScroll: boolean;
+    additionalArguments: string;
     modCache?: Record<ValidMods, string>;
 }

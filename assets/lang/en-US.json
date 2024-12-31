@@ -43,6 +43,8 @@
     "settings-channel-desc": "Use this setting to change current instance of Discord that Legcord is running.",
     "settings-invitewebsocket": "Rich Presence",
     "settings-invitewebsocket-desc": "Uses arRPC to support Discord RPC (Rich Presence) with local programs on your machine.",
+    "settings-additionalArguments": "Additional arguments",
+    "settings-additionalArguments-desc": "Additional arguments are extra commands that you can pass to Legcord. They can be used to enable or disable features, or to fix issues.",
     "settings-mod": "Client mod",
     "settings-mod-desc1": "Client mods are programs that allow you customize your Discord experience. They can change appearance of the client, modify behaviours or add new features!",
     "settings-mod-vencord": "Lightweight, and easy to use client mod. Features a built-in store for plugins.",

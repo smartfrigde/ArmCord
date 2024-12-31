@@ -1,6 +1,7 @@
 import { Show } from "solid-js";
 import type { Settings } from "../../../@types/settings.js";
 import { DropdownItem } from "../components/DropdownItem.jsx";
+import { TextBoxItem } from "../components/TextBoxItem.jsx";
 import { setConfig, toggleMod } from "../settings.js";
 import classes from "./SettingsPage.module.css";
 
@@ -224,6 +225,12 @@ export function SettingsPage() {
             >
                 {store.i18n["settings-disableHttpCache"]}
             </SwitchItem>
+            <TextBoxItem
+                title={store.i18n["settings-additionalArguments"]}
+                note={store.i18n["settings-additionalArguments-desc"]}
+                value={store.settings.additionalArguments}
+                onInput={(v: string) => setConfig("additionalArguments", v)}
+            />
             <Button size={ButtonSizes.MAX} onClick={window.legcord.settings.openCustomIconDialog}>
                 {store.i18n["settings-openCustomIconDialog"]}
             </Button>

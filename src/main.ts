@@ -107,6 +107,7 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
     }
     if (getConfig("audio") === undefined) setConfig("audio", "loopbackWithMute");
     if (getConfig("keybinds") === undefined) setConfig("keybinds", []);
+    if (getConfig("additionalArguments") === undefined) setConfig("additionalArguments", "");
     if (getConfig("transparency") === undefined) setConfig("transparency", "none");
     if (getConfig("windowStyle") === "transparent") setConfig("windowStyle", "default");
     if (typeof getConfig("tray") === "boolean") {
@@ -118,7 +119,8 @@ if (!app.requestSingleInstanceLock() && getConfig("multiInstance") === false) {
             setConfig("tray", "disabled");
         }
     }
-
+    if (getConfig("additionalArguments") !== undefined)
+        app.commandLine.appendArgument(getConfig("additionalArguments"));
     if (getConfig("smoothScroll") === false) app.commandLine.appendSwitch("disable-smooth-scrolling");
     if (getConfig("autoScroll")) app.commandLine.appendSwitch("enable-blink-features", "MiddleClickAutoscroll");
     if (getConfig("disableHttpCache")) app.commandLine.appendSwitch("disable-http-cache");
