@@ -25,6 +25,7 @@ const defaults: Settings = {
     customCssBundle: "https://legcord.app/placeholder.css",
     disableAutogain: false,
     useLegacyCapturer: false,
+    blockPowerSavingInVoiceChat: false,
     mobileMode: false,
     tray: "dynamic",
     doneSetup: false,

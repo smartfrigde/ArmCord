@@ -30,7 +30,7 @@ export interface Settings {
     mods: ValidMods[];
     mobileMode: boolean;
     skipSplash: boolean;
-    performanceMode: string;
+    performanceMode: "battery" | "dynamic" | "performance" | "vaapi" | "none";
     customJsBundle: RequestInfo | URL | string;
     customCssBundle: RequestInfo | URL | string;
     startMinimized: boolean;
@@ -39,6 +39,7 @@ export interface Settings {
     hardwareAcceleration: boolean;
     inviteWebsocket: boolean;
     disableAutogain: boolean;
+    blockPowerSavingInVoiceChat: boolean;
     disableHttpCache: boolean;
     tray: ValidTrayIcons;
     doneSetup: boolean;

@@ -18,6 +18,7 @@ import type { Settings } from "../@types/settings.js";
 import { getConfig, getConfigLocation, setConfig, setConfigBulk } from "../common/config.js";
 import { getLang, getLangName, getRawLang, setLang } from "../common/lang.js";
 import { getDisplayVersion, getVersion } from "../common/version.js";
+import { isPowerSavingEnabled, setPowerSaving } from "../power.js";
 import { splashWindow } from "../splash/main.js";
 import { createTManagerWindow } from "../themeManager/main.js";
 import { refreshGlobalKeybinds } from "./globalKeybinds.js";
@@ -93,6 +94,13 @@ export function registerIpc(passedWindow: BrowserWindow): void {
     });
     ipcMain.handle("getLang", (_event, toGet: string) => {
         return getLang(toGet);
+    });
+
+    ipcMain.on("setPowerSaving", (_event, state: boolean) => {
+        setPowerSaving(state);
+    });
+    ipcMain.on("isPowerSavingEnabled", (event) => {
+        event.returnValue = isPowerSavingEnabled();
     });
 
     ipcMain.on("win-maximize", () => {

@@ -64,6 +64,10 @@ contextBridge.exposeInMainWorld("legcord", {
         setVoiceState: (mute: boolean, deafen: boolean) => ipcRenderer.send("setVoiceState", mute, deafen),
         importGuilds: (guilds: Array<string>) => ipcRenderer.send("importGuilds", guilds),
     },
+    power: {
+        setPowerSaving: (state: boolean) => ipcRenderer.send("setPowerSaving", state),
+        isPowerSavingEnabled: () => ipcRenderer.sendSync("isPowerSavingEnabled"),
+    },
     electron: process.versions.electron,
     translations: ipcRenderer.sendSync("getTranslations") as string,
     getLang: async (toGet: string) =>

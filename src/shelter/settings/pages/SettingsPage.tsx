@@ -127,18 +127,6 @@ export function SettingsPage() {
                 <option value="canary">Canary</option>
                 <option value="ptb">PTB</option>
             </DropdownItem>
-            <DropdownItem
-                value={store.settings.performanceMode}
-                onChange={(e) => setConfig("performanceMode", (e.target as HTMLInputElement).value, true)}
-                title={store.i18n["settings-prfmMode"]}
-                note={store.i18n["settings-prfmMode-desc"]}
-                link="https://github.com/Legcord/Legcord/blob/dev/src/common/flags.ts"
-            >
-                <option value="performance">{store.i18n["settings-prfmMode-performance"]}</option>
-                <option value="battery">{store.i18n["settings-prfmMode-battery"]}</option>
-                <option value="vaapi">{store.i18n["settings-prfmMode-vaapi"]}</option>
-                <option value="none">{store.i18n["settings-none"]}</option>
-            </DropdownItem>
             <SwitchItem
                 note={store.i18n["settings-MultiInstance-desc"]}
                 value={store.settings.multiInstance}
@@ -187,6 +175,35 @@ export function SettingsPage() {
                 onChange={(e: boolean) => setConfig("spellcheck", e, true)}
             >
                 {store.i18n["settings-spellcheck"]}
+            </SwitchItem>
+            <Header class={classes.category} tag={HeaderTags.H5}>
+                Power Management
+            </Header>
+            <DropdownItem
+                value={store.settings.performanceMode}
+                onChange={(e) =>
+                    setConfig(
+                        "performanceMode",
+                        (e.target as HTMLInputElement).value as Settings["performanceMode"],
+                        true,
+                    )
+                }
+                title={store.i18n["settings-prfmMode"]}
+                note={store.i18n["settings-prfmMode-desc"]}
+                link="https://github.com/Legcord/Legcord/blob/dev/src/common/flags.ts"
+            >
+                <option value="dynamic">{store.i18n["settings-prfmMode-dynamic"]}</option>
+                <option value="performance">{store.i18n["settings-prfmMode-performance"]}</option>
+                <option value="battery">{store.i18n["settings-prfmMode-battery"]}</option>
+                <option value="vaapi">{store.i18n["settings-prfmMode-vaapi"]}</option>
+                <option value="none">{store.i18n["settings-none"]}</option>
+            </DropdownItem>
+            <SwitchItem
+                note={store.i18n["settings-blockPowerSavingInVoiceChat-desc"]}
+                value={store.settings.blockPowerSavingInVoiceChat}
+                onChange={(e: boolean) => setConfig("blockPowerSavingInVoiceChat", e, true)}
+            >
+                {store.i18n["settings-blockPowerSavingInVoiceChat"]}
             </SwitchItem>
             <Header class={classes.category} tag={HeaderTags.H5}>
                 {store.i18n["settings-category-legacy"]}

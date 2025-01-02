@@ -131,9 +131,13 @@
                   page2.classList.add("hidden");
                   page3.classList.remove("hidden");
               });
-
+              const mod = document.getElementById("mod").value;
               document.getElementById("next-page3").addEventListener("click", () => {
-                  options.mod = document.getElementById("mod").value;
+                  if (mod === "none") {
+                      options.mod = "";
+                  } else {
+                      options.mod = document.getElementById("mod").value;
+                  }
                   page3.classList.add("hidden");
                   page4.classList.remove("hidden");
               });

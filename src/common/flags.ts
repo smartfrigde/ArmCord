@@ -1,4 +1,4 @@
-import { app } from "electron";
+import { app, powerMonitor } from "electron";
 import { getConfig } from "./config.js";
 
 export let transparency: boolean;
@@ -32,6 +32,15 @@ export function injectElectronFlags(): void {
         vaapi: "--ignore-gpu-blocklist --enable-features=VaapiVideoDecoder --enable-gpu-rasterization --enable-zero-copy --force_high_performance_gpu --use-gl=desktop --disable-features=UseChromeOSDirectVideoDecoder",
     };
     switch (getConfig("performanceMode")) {
+        case "dynamic":
+            if (powerMonitor.isOnBatteryPower()) {
+                console.log("Battery mode enabled");
+                app.commandLine.appendArgument(presets.battery);
+            } else {
+                console.log("Performance mode enabled");
+                app.commandLine.appendArgument(presets.performance);
+            }
+            break;
         case "performance":
             console.log("Performance mode enabled");
             app.commandLine.appendArgument(presets.performance);

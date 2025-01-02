@@ -35,6 +35,10 @@ export interface LegcordWindow {
         setVoiceState: (mute: boolean, deafen: boolean) => void;
         importGuilds: (array: Array<string>) => void;
     };
+    power: {
+        setPowerSaving: (state: boolean) => void;
+        isPowerSavingEnabled: () => boolean;
+    };
 }
 
 declare global {
