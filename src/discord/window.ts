@@ -164,7 +164,7 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
     });
     if (getConfig("useLegacyCapturer") === false) {
         console.log("Starting screenshare module...");
-        void import("../screenshare/main.js"); // REVIEW - This is probably bad.
+        void import("./screenshare.js");
     }
 
     passedWindow.webContents.session.webRequest.onBeforeRequest(

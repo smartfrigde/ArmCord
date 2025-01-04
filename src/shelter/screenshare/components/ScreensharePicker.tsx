@@ -1,0 +1,87 @@
+import { For, createSignal } from "solid-js";
+import { Dropdown } from "../../settings/components/Dropdown.jsx";
+import classes from "./ScreensharePicker.module.css";
+import { type IPCSources, SourceCard } from "./SourceCard.jsx";
+const {
+    ui: {
+        ModalRoot,
+        ModalBody,
+        ModalConfirmFooter,
+        ModalSizes,
+        ModalHeader,
+        TextBox,
+        Button,
+        ButtonSizes,
+        Header,
+        HeaderTags,
+        Divider,
+        SwitchItem,
+        genId,
+        showToast,
+    },
+    plugin: { store },
+} = shelter;
+
+export const ScreensharePicker = (props: { close: () => void; sources: IPCSources[] }) => {
+    const [source, setSource] = createSignal("");
+    const [name, setName] = createSignal("");
+    const [audio, setAudio] = createSignal(false);
+    function startScreenshare() {
+        if (source() === "") {
+            showToast("Please select a source", "error");
+            return;
+        }
+        window.legcord.screenshare.start(source(), name(), audio());
+        props.close();
+    }
+    return (
+        <ModalRoot size={ModalSizes.SMALL}>
+            <ModalHeader close={props.close}>Screenshare</ModalHeader>
+            <ModalBody>
+                <div class={classes.sources}>
+                    <For each={props.sources}>
+                        {(source: IPCSources) => (
+                            <SourceCard
+                                source={source}
+                                onSelect={(srcId, name) => {
+                                    setSource(srcId);
+                                    setName(name);
+                                }}
+                            />
+                        )}
+                    </For>
+                </div>
+                <div>
+                    <Divider mt mb />
+                    <Header tag={HeaderTags.H3}>Quality</Header>
+                    <Dropdown
+                        value={store.resolution}
+                        onChange={(e) => {
+                            store.resolution = e.currentTarget.value;
+                        }}
+                    >
+                        <option value="480">480p</option>
+                        <option value="720">720p</option>
+                        <option value="1080">1080p</option>
+                        <option value="1440">1440p</option>
+                    </Dropdown>
+                    <Dropdown
+                        value={store.fps}
+                        onChange={(e) => {
+                            store.resolution = e.currentTarget.value;
+                        }}
+                    >
+                        <option value="5">5</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="60">60</option>
+                    </Dropdown>
+                    <SwitchItem hideBorder value={audio()} onChange={setAudio}>
+                        Audio
+                    </SwitchItem>
+                </div>
+            </ModalBody>
+            <ModalConfirmFooter confirmText="Share" onConfirm={startScreenshare} close={props.close} />
+        </ModalRoot>
+    );
+};

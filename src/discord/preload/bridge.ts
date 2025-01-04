@@ -74,6 +74,12 @@ contextBridge.exposeInMainWorld("legcord", {
         await ipcRenderer.invoke("getLang", toGet).then((result) => {
             return result as string;
         }),
+    screenshare: {
+        getSources: (sources: (event: Electron.IpcRendererEvent, ...args: IPCSources[]) => void) => {
+            ipcRenderer.on("getSources", sources);
+        },
+        start: (source: string, name: string, audio: boolean) => ipcRenderer.send("startScreenshare", source),
+    },
     getDisplayMediaSelector,
     version: ipcRenderer.sendSync("get-app-version", "app-version") as string,
     platform: ipcRenderer.sendSync("getOS") as string,

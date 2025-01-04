@@ -1,0 +1,7 @@
+.sources {
+    grid-template-columns: auto auto;
+    max-height: 300px;
+    overflow: hidden;
+    display: grid;
+    overflow-y: scroll;
+}

@@ -5,10 +5,7 @@ const requiredPlugins: Record<string, [string, { isVisible: boolean; allowedActi
     // "legcord-arrpc": "legcord://plugins/rpc/",
     "legcord-settings": ["legcord://plugins/settings/", { isVisible: false, allowedActions: {} }],
     "legcord-power": ["legcord://plugins/power/", { isVisible: false, allowedActions: {} }],
-    "legcord-screenshare": [
-        "legcord://plugins/screenshareQualityFix/",
-        { isVisible: true, allowedActions: { toggle: true } },
-    ],
+    "legcord-screenshare": ["legcord://plugins/screenshare/", { isVisible: false, allowedActions: {} }],
     "legcord-touchbar": ["legcord://plugins/touchbar/", { isVisible: true, allowedActions: { toggle: true } }],
 };
 try {

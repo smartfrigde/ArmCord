@@ -1,3 +1,4 @@
+import type { IPCSources } from "../shelter/screenshare/components/SourceCard.tsx";
 import type { Keybind } from "./keybind.js";
 import type { Settings } from "./settings.js";
 
@@ -39,10 +40,8 @@ export interface LegcordWindow {
         setPowerSaving: (state: boolean) => void;
         isPowerSavingEnabled: () => boolean;
     };
-}
-
-declare global {
-    interface Window {
-        legcord: LegcordWindow;
-    }
+    screenshare: {
+        getSources: () => void;
+        start: (id: string, name: string, audio: boolean) => void;
+    };
 }
