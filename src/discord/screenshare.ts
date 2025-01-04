@@ -20,27 +20,26 @@ function registerCustomHandler(): void {
                 console.log("WebRTC Capturer detected, using native window picker.");
                 if (sources[0] === undefined) return callback({});
             }
-                ipcMain.once("startScreenshare", (_event, id: string, name: string, audio: boolean) => {
-                    isDone = true;
-                    console.log(`Audio status: ${audio}`);
-                    const result = { id, name };
-                    console.log(result);
-                    let options: Streams = { video: sources[0] };
-                    switch (process.platform) {
-                        case "win32":
-                        case "linux":
-                            options = { video: result };
-                            if (audio) options = { video: result, audio: getConfig("audio") };
-                            callback(options);
-                            break;
-                        default:
-                            callback({ video: result });
-                    }
-                });
-                mainWindows.every((window) => {
-                    window.webContents.send("getSources", sources);
-                });
-            
+            ipcMain.once("startScreenshare", (_event, id: string, name: string, audio: boolean) => {
+                isDone = true;
+                console.log(`Audio status: ${audio}`);
+                const result = { id, name };
+                console.log(result);
+                let options: Streams = { video: sources[0] };
+                switch (process.platform) {
+                    case "win32":
+                    case "linux":
+                        options = { video: result };
+                        if (audio) options = { video: result, audio: getConfig("audio") };
+                        callback(options);
+                        break;
+                    default:
+                        callback({ video: result });
+                }
+            });
+            mainWindows.every((window) => {
+                window.webContents.send("getSources", sources);
+            });
         },
         { useSystemPicker: getConfig("useMacSystemPicker") },
     );
