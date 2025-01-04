@@ -4,4 +4,6 @@
     overflow: hidden;
     display: grid;
     overflow-y: scroll;
+    border: 1px solid #1e2124;
+    border-radius: 5px;
 }

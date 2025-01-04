@@ -24,6 +24,7 @@ import { init } from "../main.js";
 import { registerGlobalKeybinds } from "./globalKeybinds.js";
 import { registerIpc } from "./ipc.js";
 import { setMenu } from "./menu.js";
+import { registerCustomHandler } from "./screenshare.js";
 import { mainTouchBar } from "./touchbar.js";
 import { createTray, tray } from "./tray.js";
 export let mainWindows: BrowserWindow[] = [];
@@ -164,7 +165,7 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
     });
     if (getConfig("useLegacyCapturer") === false) {
         console.log("Starting screenshare module...");
-        void import("./screenshare.js");
+        registerCustomHandler();
     }
 
     passedWindow.webContents.session.webRequest.onBeforeRequest(

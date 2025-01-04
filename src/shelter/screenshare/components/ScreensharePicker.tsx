@@ -19,21 +19,24 @@ const {
 } = shelter;
 
 export const ScreensharePicker = (props: { close: () => void; sources: IPCSources[] }) => {
-    const [source, setSource] = createSignal("");
+    const [source, setSource] = createSignal("none");
     const [name, setName] = createSignal("");
     const [audio, setAudio] = createSignal(false);
     function startScreenshare() {
         if (source() === "") {
             showToast("Please select a source", "error");
-            return;
         }
         console.log(source(), name(), audio());
         window.legcord.screenshare.start(source(), name(), audio());
         props.close();
     }
+    function closeAndSave() {
+        window.legcord.screenshare.start("none", "", false);
+        props.close();
+    }
     return (
         <ModalRoot size={ModalSizes.SMALL}>
-            <ModalHeader close={props.close}>Screenshare</ModalHeader>
+            <ModalHeader close={closeAndSave}>Screenshare</ModalHeader>
             <ModalBody>
                 <div class={classes.sources}>
                     <For each={props.sources}>
@@ -80,7 +83,7 @@ export const ScreensharePicker = (props: { close: () => void; sources: IPCSource
                     </Show>
                 </div>
             </ModalBody>
-            <ModalConfirmFooter confirmText="Share" onConfirm={startScreenshare} close={props.close} />
+            <ModalConfirmFooter confirmText="Share" onConfirm={startScreenshare} close={closeAndSave} />
         </ModalRoot>
     );
 };

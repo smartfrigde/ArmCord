@@ -80,6 +80,7 @@ contextBridge.exposeInMainWorld("legcord", {
         },
         start: (source: string, name: string, audio: boolean) =>
             ipcRenderer.send("startScreenshare", source, name, audio),
+        cancel: () => ipcRenderer.send("cancelScreenshare"),
     },
     getDisplayMediaSelector,
     version: ipcRenderer.sendSync("get-app-version", "app-version") as string,

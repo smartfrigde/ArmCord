@@ -4,7 +4,7 @@ import { mainWindows } from "./window.js";
 
 let isDone: boolean;
 
-function registerCustomHandler(): void {
+export function registerCustomHandler(): void {
     session.defaultSession.setDisplayMediaRequestHandler(
         async (request, callback) => {
             console.log(request);
@@ -22,19 +22,26 @@ function registerCustomHandler(): void {
             }
             ipcMain.once("startScreenshare", (_event, id: string, name: string, audio: boolean) => {
                 isDone = true;
-                console.log(`Audio status: ${audio}`);
-                const result = { id, name };
-                console.log(result);
-                let options: Streams = { video: sources[0] };
-                switch (process.platform) {
-                    case "win32":
-                    case "linux":
-                        options = { video: result };
-                        if (audio) options = { video: result, audio: getConfig("audio") };
-                        callback(options);
-                        break;
-                    default:
-                        callback({ video: result });
+                console.log(`ID: ${id}`);
+                if (id === "none") {
+                    try {
+                        callback({});
+                    } catch (e) {}
+                } else {
+                    console.log(`Audio status: ${audio}`);
+                    const result = { id, name };
+                    console.log(result);
+                    let options: Streams = { video: sources[0] };
+                    switch (process.platform) {
+                        case "win32":
+                        case "linux":
+                            options = { video: result };
+                            if (audio) options = { video: result, audio: getConfig("audio") };
+                            callback(options);
+                            break;
+                        default:
+                            callback({ video: result });
+                    }
                 }
             });
             mainWindows.every((window) => {
@@ -44,5 +51,3 @@ function registerCustomHandler(): void {
         { useSystemPicker: getConfig("useMacSystemPicker") },
     );
 }
-
-registerCustomHandler();
