@@ -12,7 +12,7 @@ const {
         Header,
         HeaderTags,
         Divider,
-        SwitchItem,
+        Switch,
         showToast,
     },
     plugin: { store },
@@ -20,7 +20,7 @@ const {
 
 export const ScreensharePicker = (props: { close: () => void; sources: IPCSources[] }) => {
     const [source, setSource] = createSignal("none");
-    const [name, setName] = createSignal("");
+    const [name, setName] = createSignal("nothing...");
     const [audio, setAudio] = createSignal(false);
     function startScreenshare() {
         if (source() === "") {
@@ -52,35 +52,45 @@ export const ScreensharePicker = (props: { close: () => void; sources: IPCSource
                     </For>
                 </div>
                 <div>
+                    <br />
+                    <Header tag={HeaderTags.EYEBROW}>Picked {name()}</Header>
                     <Divider mt mb />
-                    <Header tag={HeaderTags.H3}>Quality</Header>
-                    <Dropdown
-                        value={store.resolution}
-                        onChange={(e) => {
-                            store.resolution = Number(e.currentTarget.value);
-                        }}
-                    >
-                        <option value="480">480p</option>
-                        <option value="720">720p</option>
-                        <option value="1080">1080p</option>
-                        <option value="1440">1440p</option>
-                    </Dropdown>
-                    <Dropdown
-                        value={store.fps}
-                        onChange={(e) => {
-                            store.fps = Number(e.currentTarget.value);
-                        }}
-                    >
-                        <option value="5">5</option>
-                        <option value="15">15</option>
-                        <option value="30">30</option>
-                        <option value="60">60</option>
-                    </Dropdown>
-                    <Show when={window.legcord.platform !== "darwin"}>
-                        <SwitchItem hideBorder value={audio()} onChange={setAudio}>
-                            Audio
-                        </SwitchItem>
-                    </Show>
+                    <div class={classes.qualityBox}>
+                        <div>
+                            <Header tag={HeaderTags.H4}>Resolution</Header>
+                            <Dropdown
+                                value={store.resolution}
+                                onChange={(e) => {
+                                    store.resolution = Number(e.currentTarget.value);
+                                }}
+                            >
+                                <option value="480">480p</option>
+                                <option value="720">720p</option>
+                                <option value="1080">1080p</option>
+                                <option value="1440">1440p</option>
+                            </Dropdown>
+                        </div>
+                        <div>
+                            <Header tag={HeaderTags.H4}>FPS</Header>
+                            <Dropdown
+                                value={store.fps}
+                                onChange={(e) => {
+                                    store.fps = Number(e.currentTarget.value);
+                                }}
+                            >
+                                <option value="5">5</option>
+                                <option value="15">15</option>
+                                <option value="30">30</option>
+                                <option value="60">60</option>
+                            </Dropdown>
+                        </div>
+                        <div>
+                            <Show when={window.legcord.platform === "darwin"}>
+                                <Header tag={HeaderTags.H4}>Audio</Header>
+                                <Switch checked={audio()} onChange={setAudio} />
+                            </Show>
+                        </div>
+                    </div>
                 </div>
             </ModalBody>
             <ModalConfirmFooter confirmText="Share" onConfirm={startScreenshare} close={closeAndSave} />

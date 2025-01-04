@@ -1,4 +1,4 @@
-import classes from "./ScreensharePicker.module.css";
+import classes from "./SourceCard.module.css";
 export interface IPCSources {
     id: string;
     name: string;
@@ -11,17 +11,9 @@ interface SourceCardProps {
 
 export const SourceCard = ({ source, onSelect }: SourceCardProps) => {
     return (
-        <div
-            onClick={() => onSelect(source.id, source.name)}
-            onKeyUp={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                    onSelect(source.id, source.name);
-                }
-            }}
-            class={classes.card}
-        >
+        <div onClick={() => onSelect(source.id, source.name)} onKeyUp={() => {}} class={classes.card}>
             <img src={source.thumbnail.toDataURL()} alt={source.name} style={{ width: "160px", height: "90px" }} />
-            <div>{source.name}</div>
+            <p class={classes.name}>{source.name}</p>
         </div>
     );
 };
