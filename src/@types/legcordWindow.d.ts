@@ -43,6 +43,5 @@ export interface LegcordWindow {
     screenshare: {
         getSources: () => void;
         start: (id: string, name: string, audio: boolean) => void;
-        cancel: () => void;
     };
 }

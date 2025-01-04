@@ -9,7 +9,6 @@ import {
     desktopCapturer,
     dialog,
     ipcMain,
-    session,
     shell,
 } from "electron";
 
@@ -23,7 +22,6 @@ import { isPowerSavingEnabled, setPowerSaving } from "../power.js";
 import { splashWindow } from "../splash/main.js";
 import { createTManagerWindow } from "../themeManager/main.js";
 import { refreshGlobalKeybinds } from "./globalKeybinds.js";
-import { registerCustomHandler } from "./screenshare.js";
 import { importGuilds, mainTouchBar, setVoiceState, voiceTouchBar } from "./touchbar.js";
 
 const userDataPath = app.getPath("userData");
@@ -90,10 +88,6 @@ export function registerIpc(passedWindow: BrowserWindow): void {
     });
     ipcMain.on("setVoiceState", (_event, mute: boolean, deafen: boolean) => {
         setVoiceState(mute, deafen);
-    });
-    ipcMain.on("cancelScreenshare", () => {
-        session.defaultSession.setDisplayMediaRequestHandler(null);
-        registerCustomHandler();
     });
     ipcMain.on("getLangSync", (event, toGet: string) => {
         event.reply("langString", getLang(toGet));
