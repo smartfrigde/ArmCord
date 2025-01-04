@@ -1,4 +1,4 @@
-import { For, createSignal } from "solid-js";
+import { For, Show, createSignal } from "solid-js";
 import { Dropdown } from "../../settings/components/Dropdown.jsx";
 import classes from "./ScreensharePicker.module.css";
 import { type IPCSources, SourceCard } from "./SourceCard.jsx";
@@ -73,9 +73,11 @@ export const ScreensharePicker = (props: { close: () => void; sources: IPCSource
                         <option value="30">30</option>
                         <option value="60">60</option>
                     </Dropdown>
-                    <SwitchItem hideBorder value={audio()} onChange={setAudio}>
-                        Audio
-                    </SwitchItem>
+                    <Show when={window.legcord.platform !== "darwin"}>
+                        <SwitchItem hideBorder value={audio()} onChange={setAudio}>
+                            Audio
+                        </SwitchItem>
+                    </Show>
                 </div>
             </ModalBody>
             <ModalConfirmFooter confirmText="Share" onConfirm={startScreenshare} close={props.close} />

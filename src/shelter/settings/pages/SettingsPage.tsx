@@ -134,6 +134,15 @@ export function SettingsPage() {
             >
                 {store.i18n["settings-MultiInstance"]}
             </SwitchItem>
+            <Show when={window.legcord.platform === "darwin"}>
+                <SwitchItem
+                    note={store.i18n["settings-useMacSystemPicker-desc"]}
+                    value={store.settings.useMacSystemPicker}
+                    onChange={(e: boolean) => setConfig("useMacSystemPicker", e)}
+                >
+                    {store.i18n["settings-useMacSystemPicker"]}
+                </SwitchItem>
+            </Show>
             <SwitchItem
                 note={store.i18n["settings-disableAutogain-desc"]}
                 value={store.settings.disableAutogain}

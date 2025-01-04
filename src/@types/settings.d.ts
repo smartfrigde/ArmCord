@@ -37,6 +37,7 @@ export interface Settings {
     useLegacyCapturer: boolean;
     keybinds: Keybind[];
     hardwareAcceleration: boolean;
+    useMacSystemPicker: boolean;
     inviteWebsocket: boolean;
     disableAutogain: boolean;
     blockPowerSavingInVoiceChat: boolean;

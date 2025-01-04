@@ -45,6 +45,8 @@
     "settings-channel-desc": "Use this setting to change current instance of Discord that Legcord is running.",
     "settings-invitewebsocket": "Rich Presence",
     "settings-invitewebsocket-desc": "Uses arRPC to support Discord RPC (Rich Presence) with local programs on your machine.",
+    "settings-useMacSystemPicker": "Use macOS system picker",
+    "settings-useMacSystemPicker-desc": "Use native macOS screenshare when possible. macOS 15+ only",
     "settings-additionalArguments": "Additional arguments",
     "settings-additionalArguments-desc": "Additional arguments are extra commands that you can pass to Legcord. They can be used to enable or disable features, or to fix issues.",
     "settings-mod": "Client mod",

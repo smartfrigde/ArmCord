@@ -26,6 +26,7 @@ const defaults: Settings = {
     disableAutogain: false,
     useLegacyCapturer: false,
     blockPowerSavingInVoiceChat: false,
+    useMacSystemPicker: true,
     mobileMode: false,
     tray: "dynamic",
     doneSetup: false,
