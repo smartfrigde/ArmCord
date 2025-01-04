@@ -1,5 +1,4 @@
-import path from "node:path";
-import { type MessageBoxOptions, type Streams, desktopCapturer, dialog, ipcMain, session } from "electron";
+import { type MessageBoxOptions, type Streams, desktopCapturer, ipcMain, session } from "electron";
 import { getConfig } from "../common/config.js";
 import { mainWindows } from "./window.js";
 
@@ -27,7 +26,7 @@ function registerCustomHandler(): void {
             if (!sources) return callback({});
             if (process.platform === "linux" && process.env.XDG_SESSION_TYPE?.toLowerCase() === "wayland") {
                 console.log("WebRTC Capturer detected, skipping window creation.");
-                const options: Streams = { video: sources[0] };
+                //const options: Streams = { video: sources[0] };
                 if (sources[0] === undefined) return callback({});
             } else {
                 ipcMain.once("startScreenshare", (_event, id: string, name: string, audio: boolean) => {

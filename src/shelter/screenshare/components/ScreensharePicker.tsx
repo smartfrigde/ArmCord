@@ -9,14 +9,10 @@ const {
         ModalConfirmFooter,
         ModalSizes,
         ModalHeader,
-        TextBox,
-        Button,
-        ButtonSizes,
         Header,
         HeaderTags,
         Divider,
         SwitchItem,
-        genId,
         showToast,
     },
     plugin: { store },
@@ -31,6 +27,7 @@ export const ScreensharePicker = (props: { close: () => void; sources: IPCSource
             showToast("Please select a source", "error");
             return;
         }
+        console.log(source(), name(), audio());
         window.legcord.screenshare.start(source(), name(), audio());
         props.close();
     }
@@ -57,7 +54,7 @@ export const ScreensharePicker = (props: { close: () => void; sources: IPCSource
                     <Dropdown
                         value={store.resolution}
                         onChange={(e) => {
-                            store.resolution = e.currentTarget.value;
+                            store.resolution = Number(e.currentTarget.value);
                         }}
                     >
                         <option value="480">480p</option>
@@ -68,7 +65,7 @@ export const ScreensharePicker = (props: { close: () => void; sources: IPCSource
                     <Dropdown
                         value={store.fps}
                         onChange={(e) => {
-                            store.resolution = e.currentTarget.value;
+                            store.fps = Number(e.currentTarget.value);
                         }}
                     >
                         <option value="5">5</option>
