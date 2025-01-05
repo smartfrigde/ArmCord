@@ -259,6 +259,24 @@ export function SettingsPage() {
                 {store.i18n["settings-disableHttpCache"]}
             </SwitchItem>
             <TextBoxItem
+                title={store.i18n["settings-bitrateMin"]}
+                note={store.i18n["settings-bitrateMin-desc"]}
+                value={store.settings.bitrateMin}
+                onInput={(v: string) => setConfig("bitrateMin", Number(v))}
+            />
+            <TextBoxItem
+                title={store.i18n["settings-bitrateMax"]}
+                note={store.i18n["settings-bitrateMax-desc"]}
+                value={store.settings.bitrateMax}
+                onInput={(v: string) => setConfig("bitrateMax", Number(v))}
+            />
+            <TextBoxItem
+                title={store.i18n["settings-bitrateTarget"]}
+                note={store.i18n["settings-bitrateTarget-desc"]}
+                value={store.settings.bitrateTarget}
+                onInput={(v: string) => setConfig("bitrateTarget", Number(v))}
+            />
+            <TextBoxItem
                 title={store.i18n["settings-additionalArguments"]}
                 note={store.i18n["settings-additionalArguments-desc"]}
                 value={store.settings.additionalArguments}

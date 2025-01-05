@@ -49,4 +49,7 @@ export interface Settings {
     autoScroll: boolean;
     additionalArguments: string;
     modCache?: Record<ValidMods, string>;
+    bitrateMin: number;
+    bitrateMax: number;
+    bitrateTarget: number;
 }

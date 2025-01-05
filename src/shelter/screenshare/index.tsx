@@ -24,9 +24,12 @@ function onStreamQualityChange() {
         streamConnection.videoStreamParameters[0].maxFrameRate = store.fps;
         streamConnection.videoStreamParameters[0].maxResolution.height = store.resolution;
         streamConnection.videoStreamParameters[0].maxResolution.width = Math.round(store.resolution * (16 / 9));
-        streamConnection.videoQualityManager.goliveMaxQuality.bitrateMin = 500000;
-        streamConnection.videoQualityManager.goliveMaxQuality.bitrateMax = 8000000;
-        streamConnection.videoQualityManager.goliveMaxQuality.bitrateTarget = 600000;
+        streamConnection.videoQualityManager.goliveMaxQuality.bitrateMin =
+            window.legcord.settings.getConfig().bitrateMin;
+        streamConnection.videoQualityManager.goliveMaxQuality.bitrateMax =
+            window.legcord.settings.getConfig().bitrateMax;
+        streamConnection.videoQualityManager.goliveMaxQuality.bitrateTarget =
+            window.legcord.settings.getConfig().bitrateTarget;
         log(`Patched current user stream with resolution: ${store.resolution} and fps: ${store.fps}`);
     }
 }
