@@ -91,15 +91,4 @@ export default defineConfig([
         external: electronExternals,
         plugins: [typescript(), minify({ minify: prodEnv })],
     },
-    {
-        input: "src/screenshare/preload.mts",
-        output: {
-            dir: "ts-out/screenshare",
-            format: "esm",
-            entryFileNames: "[name].mjs",
-            sourcemap: true,
-        },
-        external: electronExternals,
-        plugins: [typescript(), minify({ minify: prodEnv })],
-    },
 ]);
