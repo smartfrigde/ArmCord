@@ -54,7 +54,8 @@ await sleep(5000).then(() => {
     // dirty hack to make clicking notifications focus Legcord
     if (
         document.getElementById("window-title") == null &&
-        ipcRenderer.sendSync("getConfig", "windowStyle") === "default"
+        ipcRenderer.sendSync("getConfig", "windowStyle") === "default" &&
+        ipcRenderer.sendSync("getConfig", "disableTitlebarChecks") === false
     ) {
         console.warn("Custom titlebar is missing. Switching to native");
         ipcRenderer.send("setConfig", "windowStyle", "native");

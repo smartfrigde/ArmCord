@@ -30,6 +30,7 @@ const defaults: Settings = {
     mobileMode: false,
     tray: "dynamic",
     doneSetup: false,
+    disableTitlebarChecks: false,
     additionalArguments: "",
     customIcon: join(import.meta.dirname, "../", "/assets/desktop.png"),
     smoothScroll: true,

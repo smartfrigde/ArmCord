@@ -43,6 +43,8 @@
     "settings-spellcheck-desc": "Helps you correct misspelled words by highlighting them.",
     "settings-channel": "Discord channel",
     "settings-channel-desc": "Use this setting to change current instance of Discord that Legcord is running.",
+    "settings-disableTitlebarChecks": "Disable titlebar checks",
+    "settings-disableTitlebarChecks-desc": "Stops Legcord from restarting when custom titlebar is not found.",
     "settings-invitewebsocket": "Rich Presence",
     "settings-invitewebsocket-desc": "Uses arRPC to support Discord RPC (Rich Presence) with local programs on your machine.",
     "settings-useMacSystemPicker": "Use macOS system picker",
