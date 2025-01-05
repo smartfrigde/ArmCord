@@ -12,7 +12,7 @@ const {
         Header,
         HeaderTags,
         Divider,
-        Switch,
+        Checkbox,
         showToast,
     },
     plugin: { store },
@@ -85,9 +85,11 @@ export const ScreensharePicker = (props: { close: () => void; sources: IPCSource
                             </Dropdown>
                         </div>
                         <div>
-                            <Show when={window.legcord.platform === "darwin"}>
+                            <Show when={window.legcord.platform !== "darwin"}>
                                 <Header tag={HeaderTags.H4}>Audio</Header>
-                                <Switch checked={audio()} onChange={setAudio} />
+                                <div class={classes.checkbox}>
+                                    <Checkbox checked={audio()} onChange={setAudio} />
+                                </div>
                             </Show>
                         </div>
                     </div>
