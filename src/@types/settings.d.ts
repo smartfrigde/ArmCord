@@ -34,7 +34,6 @@ export interface Settings {
     customJsBundle: RequestInfo | URL | string;
     customCssBundle: RequestInfo | URL | string;
     startMinimized: boolean;
-    useLegacyCapturer: boolean;
     keybinds: Keybind[];
     hardwareAcceleration: boolean;
     useMacSystemPicker: boolean;

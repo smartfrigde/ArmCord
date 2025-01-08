@@ -24,7 +24,6 @@ const defaults: Settings = {
     customJsBundle: "https://legcord.app/placeholder.js",
     customCssBundle: "https://legcord.app/placeholder.css",
     disableAutogain: false,
-    useLegacyCapturer: false,
     blockPowerSavingInVoiceChat: false,
     useMacSystemPicker: true,
     mobileMode: false,

@@ -1,44 +1,14 @@
-import { type SourcesOptions, contextBridge, ipcRenderer } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 import type { Keybind } from "../../@types/keybind.js";
 import type { LegcordWindow } from "../../@types/legcordWindow.d.ts";
 import type { Settings } from "../../@types/settings.js";
 
-const CANCEL_ID = "desktop-capturer-selection__cancel";
-const desktopCapturer = {
-    getSources: (opts: SourcesOptions) => ipcRenderer.invoke("DESKTOP_CAPTURER_GET_SOURCES", opts),
-};
 interface IPCSources {
     id: string;
     name: string;
     thumbnail: HTMLCanvasElement;
 }
 
-async function getDisplayMediaSelector(): Promise<string> {
-    const sources = (await desktopCapturer.getSources({
-        types: ["screen", "window"],
-    })) as IPCSources[];
-    return `<div class="desktop-capturer-selection__scroller">
-  <ul class="desktop-capturer-selection__list">
-    ${sources
-        .map(
-            ({ id, name, thumbnail }) => `
-      <li class="desktop-capturer-selection__item">
-        <button class="desktop-capturer-selection__btn" data-id="${id}" title="${name}">
-          <img class="desktop-capturer-selection__thumbnail" src="${thumbnail.toDataURL()}" />
-          <span class="desktop-capturer-selection__name">${name}</span>
-        </button>
-      </li>
-    `,
-        )
-        .join("")}
-    <li class="desktop-capturer-selection__item">
-      <button class="desktop-capturer-selection__btn" data-id="${CANCEL_ID}" title="Cancel">
-        <span class="desktop-capturer-selection__name desktop-capturer-selection__name--cancel">Cancel</span>
-      </button>
-    </li>
-  </ul>
-</div>`;
-}
 contextBridge.exposeInMainWorld("legcord", {
     window: {
         show: () => ipcRenderer.send("win-show"),
@@ -81,7 +51,6 @@ contextBridge.exposeInMainWorld("legcord", {
         start: (source: string, name: string, audio: boolean) =>
             ipcRenderer.send("startScreenshare", source, name, audio),
     },
-    getDisplayMediaSelector,
     version: ipcRenderer.sendSync("get-app-version", "app-version") as string,
     platform: ipcRenderer.sendSync("getOS") as string,
     restart: () => ipcRenderer.send("restart"),

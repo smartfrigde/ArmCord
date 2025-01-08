@@ -215,16 +215,6 @@ export function SettingsPage() {
                 {store.i18n["settings-blockPowerSavingInVoiceChat"]}
             </SwitchItem>
             <Header class={classes.category} tag={HeaderTags.H5}>
-                {store.i18n["settings-category-legacy"]}
-            </Header>
-            <SwitchItem
-                note={store.i18n["settings-useLegacyCapturer-desc"]}
-                value={store.settings.useLegacyCapturer}
-                onChange={(e: boolean) => setConfig("useLegacyCapturer", e, true)}
-            >
-                {store.i18n["settings-useLegacyCapturer"]}
-            </SwitchItem>
-            <Header class={classes.category} tag={HeaderTags.H5}>
                 {store.i18n["settings-category-debug"]}
             </Header>
             <DropdownItem

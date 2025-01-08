@@ -163,10 +163,8 @@ function doAfterDefiningTheWindow(passedWindow: BrowserWindow): void {
 
         return { action: "deny" };
     });
-    if (getConfig("useLegacyCapturer") === false) {
-        console.log("Starting screenshare module...");
-        registerCustomHandler();
-    }
+
+    registerCustomHandler();
 
     passedWindow.webContents.session.webRequest.onBeforeRequest(
         { urls: ["https://*/api/v*/science", "https://sentry.io/*", "https://*.nel.cloudflare.com/*"] },

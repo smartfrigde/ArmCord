@@ -14,10 +14,7 @@ import { injectMobileStuff } from "./mobile.js";
 import { injectTitlebar } from "./titlebar.mjs";
 
 window.localStorage.setItem("hideNag", "true");
-if (ipcRenderer.sendSync("getConfig", "legacyCapturer")) {
-    console.warn("Using legacy capturer module");
-    await import("./capturer.js");
-}
+
 const version = ipcRenderer.sendSync("displayVersion") as string;
 
 declare global {
