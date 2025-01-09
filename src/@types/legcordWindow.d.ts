@@ -1,6 +1,6 @@
-import type { IPCSources } from "../shelter/screenshare/components/SourceCard.tsx";
 import type { Keybind } from "./keybind.js";
 import type { Settings } from "./settings.js";
+import type { ThemeManifest } from "./themeManifest.js";
 
 export interface LegcordWindow {
     window: {
@@ -11,11 +11,8 @@ export interface LegcordWindow {
     };
     electron: string;
     getLang: (toGet: string) => Promise<string>;
-    getDisplayMediaSelector: () => Promise<string>;
     version: string;
     platform: string;
-    openThemesWindow: () => void;
-    openQuickCssFile: () => void;
     restart: () => void;
     translations: string;
     settings: {
@@ -43,5 +40,14 @@ export interface LegcordWindow {
     screenshare: {
         getSources: () => void;
         start: (id: string, name: string, audio: boolean) => void;
+    };
+    themes: {
+        install: (url: string) => void;
+        uninstall: (id: string) => void;
+        set: (id: string, state: boolean) => void;
+        getThemes: () => Readonly<ThemeManifest[]>;
+        openQuickCssFile: () => void;
+        edit: (id: string) => void;
+        folder: (id: string) => void;
     };
 }

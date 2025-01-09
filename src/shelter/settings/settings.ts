@@ -7,8 +7,13 @@ const {
 const settings = store.settings as Settings;
 
 export let isRestartRequired = false;
+
 export function refreshSettings() {
     store.settings = window.legcord.settings.getConfig();
+}
+
+export function refreshThemes() {
+    store.themes = window.legcord.themes.getThemes();
 }
 
 export function setConfig<K extends keyof Settings>(key: K, value: Settings[K], shouldRestart?: boolean) {

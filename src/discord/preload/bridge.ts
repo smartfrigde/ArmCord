@@ -2,6 +2,7 @@ import { contextBridge, ipcRenderer } from "electron";
 import type { Keybind } from "../../@types/keybind.js";
 import type { LegcordWindow } from "../../@types/legcordWindow.d.ts";
 import type { Settings } from "../../@types/settings.js";
+import type { ThemeManifest } from "../../@types/themeManifest.js";
 
 interface IPCSources {
     id: string;
@@ -54,9 +55,16 @@ contextBridge.exposeInMainWorld("legcord", {
     version: ipcRenderer.sendSync("get-app-version", "app-version") as string,
     platform: ipcRenderer.sendSync("getOS") as string,
     restart: () => ipcRenderer.send("restart"),
-    openThemesWindow: () => ipcRenderer.send("openThemesWindow"),
-    openQuickCssFile: () => ipcRenderer.send("openQuickCssFile"),
-} as LegcordWindow);
+    themes: {
+        install: async (url: string) => ipcRenderer.invoke("installBDTheme", url) as Promise<null>,
+        uninstall: (id: string) => ipcRenderer.send("uninstallTheme", id),
+        edit: (id: string) => ipcRenderer.send("editTheme", id),
+        getThemes: () => ipcRenderer.sendSync("getThemes") as ThemeManifest[],
+        set: (id: string, state: boolean) => ipcRenderer.send("setThemeEnabled", id, state),
+        folder: (id: string) => ipcRenderer.send("openThemeFolder", id),
+        openQuickCssFile: () => ipcRenderer.send("openQuickCssFile"),
+    },
+} as unknown as LegcordWindow);
 
 let windowCallback: (arg0: object) => void;
 contextBridge.exposeInMainWorld("LegcordRPC", {

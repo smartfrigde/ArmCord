@@ -21,7 +21,6 @@ import { fetchMods } from "./discord/extensions/modloader.js";
 import { createWindow } from "./discord/window.js";
 import { createSetupWindow } from "./setup/main.js";
 import { createSplashWindow } from "./splash/main.js";
-import { createTManagerWindow } from "./themeManager/main.js";
 export let settings: Settings;
 checkForDataFolder();
 checkIfConfigExists();
@@ -43,10 +42,6 @@ function args(): void {
         console.log(`Setting ${e[0]} to ${e[1]}`);
         app.relaunch();
         app.exit();
-    } else if (args === "themes") {
-        void app.whenReady().then(async () => {
-            await createTManagerWindow();
-        });
     }
 }
 export async function init(): Promise<void> {

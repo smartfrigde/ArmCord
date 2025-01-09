@@ -1,4 +1,5 @@
 export interface ThemeManifest {
+    id?: string;
     name: string;
     author?: string;
     description?: string;

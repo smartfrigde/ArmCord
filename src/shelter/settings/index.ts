@@ -2,7 +2,7 @@
 import { KeybindsPage } from "./pages/KeybindsPage.jsx";
 import { SettingsPage } from "./pages/SettingsPage.jsx";
 import { ThemesPage } from "./pages/ThemesPage.jsx";
-import { isRestartRequired, refreshSettings } from "./settings.js";
+import { isRestartRequired, refreshSettings, refreshThemes } from "./settings.js";
 const {
     plugin: { store },
     settings: { registerSection },
@@ -40,6 +40,7 @@ function restartRequired(payload: { event: string; properties: { origin_pane: st
 
 export function onLoad() {
     refreshSettings();
+    refreshThemes();
     // used for restart required dialog later
     store.i18n = window.legcord.translations;
     log("Legcord Settings");

@@ -4,7 +4,7 @@ import { type BrowserWindow, app } from "electron";
 import type { ThemeManifest } from "../@types/themeManifest.js";
 import { mainWindows } from "../discord/window.js";
 const userDataPath = app.getPath("userData");
-const themesFolder = `${userDataPath}/themes/`;
+const themesFolder = path.join(userDataPath, "/themes/");
 function parseBDManifest(content: string) {
     const metaReg = /@([^ ]*) (.*)/g;
     if (!content.startsWith("/**")) {
@@ -89,15 +89,15 @@ export function injectThemesMain(browserWindow: BrowserWindow): void {
     }
     browserWindow.webContents.on("did-finish-load", () => {
         fs.readdirSync(themesFolder).forEach((file) => {
-            const themePath = `${themesFolder}/${file}`;
-            if (fs.statSync(themePath).isFile()) {
+            const themePath = path.join(themesFolder, file);
+            if (fs.statSync(themePath).isFile() && file.endsWith(".DS_Store")) {
                 console.log(`[Theme Manager] Local theme detected: ${themePath}`);
                 installTheme(themePath).then(() => {
                     fs.unlinkSync(themePath);
                 });
             } else {
                 try {
-                    const manifest = fs.readFileSync(`${themePath}/manifest.json`, "utf8");
+                    const manifest = fs.readFileSync(path.join(themePath, "manifest.json"), "utf8");
                     const themeFile = JSON.parse(manifest) as ThemeManifest;
                     if (themeFile.enabled === undefined) {
                         if (fs.readFileSync(`${userDataPath}/disabled.txt`).toString().includes(file)) {
@@ -136,14 +136,14 @@ export function uninstallTheme(id: string) {
 }
 
 export function setThemeEnabled(id: string, enabled: boolean) {
-    const manifest = JSON.parse(fs.readFileSync(`${themesFolder}/${id}/manifest.json`, "utf8")) as ThemeManifest;
+    const manifest = JSON.parse(fs.readFileSync(path.join(themesFolder ,id, "/manifest.json"), "utf8")) as ThemeManifest;
     if (enabled !== manifest.enabled) {
         mainWindows.every((passedWindow) => {
             if (enabled) {
                 passedWindow.webContents.send(
                     "addTheme",
                     id,
-                    fs.readFileSync(`${themesFolder}/${id}/${manifest.theme}`, "utf-8"),
+                    fs.readFileSync(path.join(themesFolder ,id, manifest.theme), "utf-8"),
                 );
                 console.log(`[Theme Manager] Loaded ${manifest.name} made by ${manifest.author}`);
             } else {

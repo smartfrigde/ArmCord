@@ -79,16 +79,5 @@ export default defineConfig([
         },
         external: electronExternals,
         plugins: [typescript(), minify({ minify: prodEnv })],
-    },
-    {
-        input: "src/themeManager/preload.mts",
-        output: {
-            dir: "ts-out/themeManager",
-            format: "esm",
-            entryFileNames: "[name].mjs",
-            sourcemap: true,
-        },
-        external: electronExternals,
-        plugins: [typescript(), minify({ minify: prodEnv })],
-    },
+    }
 ]);

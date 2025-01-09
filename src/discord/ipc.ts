@@ -1,26 +1,17 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import {
-    type BrowserWindow,
-    type SourcesOptions,
-    app,
-    clipboard,
-    desktopCapturer,
-    dialog,
-    ipcMain,
-    shell,
-} from "electron";
-
+import { type BrowserWindow, app, clipboard, dialog, ipcMain, shell } from "electron";
 import isDev from "electron-is-dev";
 import type { Keybind } from "../@types/keybind.js";
 import type { Settings } from "../@types/settings.js";
+import type { ThemeManifest } from "../@types/themeManifest.js";
 import { getConfig, getConfigLocation, setConfig, setConfigBulk } from "../common/config.js";
 import { getLang, getLangName, getRawLang, setLang } from "../common/lang.js";
+import { installTheme, setThemeEnabled, uninstallTheme } from "../common/themes.js";
 import { getDisplayVersion, getVersion } from "../common/version.js";
 import { isPowerSavingEnabled, setPowerSaving } from "../power.js";
 import { splashWindow } from "../splash/main.js";
-import { createTManagerWindow } from "../themeManager/main.js";
 import { refreshGlobalKeybinds } from "./globalKeybinds.js";
 import { importGuilds, mainTouchBar, setVoiceState, voiceTouchBar } from "./touchbar.js";
 
@@ -65,6 +56,42 @@ export function registerIpc(passedWindow: BrowserWindow): void {
             };
         }
     });
+
+    // theming
+    ipcMain.on("openThemesFolder", () => {
+        shell.showItemInFolder(themesPath);
+    });
+    ipcMain.on("setThemeEnabled", (_event, name: string, enabled: boolean) => {
+        console.log(name, enabled);
+        setThemeEnabled(name, enabled);
+    });
+    ipcMain.on("editTheme", (_event, id: string) => {
+        const manifest = JSON.parse(readFileSync(`${themesPath}/${id}/manifest.json`, "utf8")) as ThemeManifest;
+        void shell.openPath(`${themesPath}/${id}/${manifest.theme}`);
+    });
+    ipcMain.on("openThemeFolder", (_event, id: string) => {
+        void shell.openPath(path.join(themesPath, id));
+    });
+    ipcMain.on("uninstallTheme", (_event, id: string) => {
+        uninstallTheme(id);
+    });
+
+    ipcMain.handle("installBDTheme", async (_event, link: string) => {
+        await installTheme(link)
+    });
+
+    ipcMain.on("getThemes", (event) => {
+        const themes = [];
+        const themeFolders = readdirSync(themesPath);
+        for (const folder of themeFolders) {
+            if (existsSync(`${themesPath}/${folder}/manifest.json`)){
+                const manifest = JSON.parse(readFileSync(`${themesPath}/${folder}/manifest.json`, "utf8")) as ThemeManifest;
+                themes.push({ ...manifest, id: folder });
+            }
+        }
+        event.returnValue = themes;
+    });
+
     ipcMain.on("splashEnd", () => {
         splashWindow.close();
         if (getConfig("startMinimized")) {
@@ -175,11 +202,6 @@ export function registerIpc(passedWindow: BrowserWindow): void {
     ipcMain.on("getConfig", (event, arg: keyof Settings) => {
         event.returnValue = getConfig(arg);
     });
-    ipcMain.on("openThemesWindow", () => {
-        void createTManagerWindow();
-    });
-    // NOTE - I assume this would return sources based on the fact that the function only ingests sources
-    ipcMain.handle("DESKTOP_CAPTURER_GET_SOURCES", (_event, opts: SourcesOptions) => desktopCapturer.getSources(opts));
     ipcMain.on("saveSettings", (_event, args: Settings) => {
         console.log(args);
         setConfigBulk(args);
