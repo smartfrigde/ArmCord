@@ -136,14 +136,16 @@ export function uninstallTheme(id: string) {
 }
 
 export function setThemeEnabled(id: string, enabled: boolean) {
-    const manifest = JSON.parse(fs.readFileSync(path.join(themesFolder ,id, "/manifest.json"), "utf8")) as ThemeManifest;
+    const manifest = JSON.parse(
+        fs.readFileSync(path.join(themesFolder, id, "/manifest.json"), "utf8"),
+    ) as ThemeManifest;
     if (enabled !== manifest.enabled) {
         mainWindows.every((passedWindow) => {
             if (enabled) {
                 passedWindow.webContents.send(
                     "addTheme",
                     id,
-                    fs.readFileSync(path.join(themesFolder ,id, manifest.theme), "utf-8"),
+                    fs.readFileSync(path.join(themesFolder, id, manifest.theme), "utf-8"),
                 );
                 console.log(`[Theme Manager] Loaded ${manifest.name} made by ${manifest.author}`);
             } else {

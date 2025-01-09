@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { type BrowserWindow, app, clipboard, dialog, ipcMain, shell } from "electron";
@@ -77,15 +77,17 @@ export function registerIpc(passedWindow: BrowserWindow): void {
     });
 
     ipcMain.handle("installBDTheme", async (_event, link: string) => {
-        await installTheme(link)
+        await installTheme(link);
     });
 
     ipcMain.on("getThemes", (event) => {
         const themes = [];
         const themeFolders = readdirSync(themesPath);
         for (const folder of themeFolders) {
-            if (existsSync(`${themesPath}/${folder}/manifest.json`)){
-                const manifest = JSON.parse(readFileSync(`${themesPath}/${folder}/manifest.json`, "utf8")) as ThemeManifest;
+            if (existsSync(`${themesPath}/${folder}/manifest.json`)) {
+                const manifest = JSON.parse(
+                    readFileSync(`${themesPath}/${folder}/manifest.json`, "utf8"),
+                ) as ThemeManifest;
                 themes.push({ ...manifest, id: folder });
             }
         }

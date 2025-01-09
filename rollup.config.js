@@ -79,5 +79,5 @@ export default defineConfig([
         },
         external: electronExternals,
         plugins: [typescript(), minify({ minify: prodEnv })],
-    }
+    },
 ]);
