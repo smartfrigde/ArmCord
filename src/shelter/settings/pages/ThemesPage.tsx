@@ -5,7 +5,7 @@ import { refreshThemes } from "../settings.js";
 import classes from "./ThemesPages.module.css";
 
 const {
-    ui: { Button, Header, HeaderTags, ButtonSizes, Divider, TextBox },
+    ui: { Button, Header, HeaderTags, ButtonSizes, Divider, TextBox, showToast },
     plugin: { store },
 } = shelter;
 
@@ -16,6 +16,14 @@ export function ThemesPage() {
     function installTheme() {
         window.legcord.themes.install(downloadUrl());
         setDownloadUrl("");
+        setTimeout(() => {
+            refreshThemes();
+        }, 1000);
+        showToast({
+            title: "Success!",
+            content: "BD theme successfully installed!",
+            duration: 3000,
+        });
     }
     return (
         <>

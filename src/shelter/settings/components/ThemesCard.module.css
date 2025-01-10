@@ -3,7 +3,6 @@
     border-radius: 4px;
     padding: 0.5rem;
     margin-top: 0.5rem;
-    display: flex;
     flex-wrap: wrap;
 }
 
@@ -30,6 +29,15 @@
     }
 }
 
-.btnContainer {
-    justify-content: flex-end;
+.icon {
+    height: 20px;
+    margin-top: 2px;
+    filter: brightness(0) invert(1);
+}
+.mainInfo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 0.5rem;
 }
