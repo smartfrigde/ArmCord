@@ -61,6 +61,27 @@ export function registerIpc(passedWindow: BrowserWindow): void {
     ipcMain.on("openThemesFolder", () => {
         shell.showItemInFolder(themesPath);
     });
+    ipcMain.on("openImportPicker", () => {
+        dialog
+            .showOpenDialog({
+                title: "Select a theme you want to import",
+                buttonLabel: "Import",
+                properties: ["openFile", "multiSelections"],
+                filters: [
+                    { name: "Discord styles", extensions: ["scss", "css"] },
+                    { name: "All Files", extensions: ["*"] },
+                ],
+            })
+            .then((result) => {
+                if (result.canceled) return;
+                for (const file of result.filePaths) {
+                    installTheme(file);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    });
     ipcMain.on("setThemeEnabled", (_event, name: string, enabled: boolean) => {
         console.log(name, enabled);
         setThemeEnabled(name, enabled);

@@ -43,6 +43,7 @@ export interface LegcordWindow {
     };
     themes: {
         install: (url: string) => void;
+        openImportPicker: () => void;
         uninstall: (id: string) => void;
         set: (id: string, state: boolean) => void;
         getThemes: () => Readonly<ThemeManifest[]>;

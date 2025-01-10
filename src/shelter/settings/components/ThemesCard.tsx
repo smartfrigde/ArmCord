@@ -4,7 +4,7 @@ import { refreshThemes } from "../settings.js";
 import classes from "./ThemesCard.module.css";
 
 const {
-    ui: { IconBin, Header, Switch, HeaderTags },
+    ui: { IconBin, Header, Switch, HeaderTags, IconCog },
 } = shelter;
 
 export const ThemesCard = (props: { theme: ThemeManifest }) => {
@@ -21,6 +21,12 @@ export const ThemesCard = (props: { theme: ThemeManifest }) => {
         if (props.theme.id) {
             window.legcord.themes.uninstall(props.theme.id);
         }
+        refreshThemes();
+    }
+    function editTheme() {
+        if (props.theme.id) {
+            window.legcord.themes.edit(props.theme.id);
+        }
     }
     return (
         <div class={classes.card}>
@@ -33,6 +39,9 @@ export const ThemesCard = (props: { theme: ThemeManifest }) => {
             <div class={classes.btnContainer}>
                 <button title="Delete" type="button" onClick={removeTheme} class={classes.btn}>
                     <IconBin />
+                </button>
+                <button title="Edit" type="button" onClick={editTheme} class={classes.btn}>
+                    <IconCog />
                 </button>
             </div>
             <div class={classes.switch}>
