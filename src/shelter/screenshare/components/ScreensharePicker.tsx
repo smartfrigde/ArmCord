@@ -22,6 +22,10 @@ export const ScreensharePicker = (props: { close: () => void; sources: IPCSource
     const [source, setSource] = createSignal("none");
     const [name, setName] = createSignal("nothing...");
     const [audio, setAudio] = createSignal(false);
+    if (props.sources.length === 1) {
+        setSource(props.sources[0].id);
+        setName(props.sources[0].name);
+    }
     function startScreenshare() {
         if (source() === "") {
             showToast("Please select a source", "error");
